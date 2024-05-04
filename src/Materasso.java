@@ -1,4 +1,4 @@
-public class MaterassoModel {
+public class Materasso {
     private String tipo;
     private String id;
     private int altezza;

@@ -7,6 +7,7 @@ public class Main {
 
             @Override
             public void run() {
+                // andrea
                 //LoginView view = new LoginView();
                 provaView provaView = new provaView();
             }

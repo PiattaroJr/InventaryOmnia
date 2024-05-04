@@ -8,6 +8,7 @@ public class provaView extends JFrame {
     private JPasswordField passwordPasswordField;
     private JLabel log;
 
+
     public provaView() {
         setContentPane(rootPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

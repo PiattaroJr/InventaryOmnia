@@ -9,7 +9,8 @@ public class Main {
             public void run() {
                 // andrea
                 //LoginView view = new LoginView();
-                provaView provaView = new provaView();
+                //provaView provaView = new provaView();
+                InventaryOmniaHomeView homeView = new InventaryOmniaHomeView();
             }
         });
     }

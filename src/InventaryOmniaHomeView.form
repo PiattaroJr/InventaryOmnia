@@ -53,7 +53,7 @@
         <children>
           <grid id="a6ee3" binding="MenuPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-15463009"/>
@@ -73,7 +73,18 @@
               <component id="f029f" class="javax.swing.JButton" binding="removeButton">
                 <constraints border-constraint="Center"/>
                 <properties>
-                  <enabled value="false"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <defaultCapable value="true"/>
+                  <enabled value="true"/>
+                  <focusPainted value="true"/>
+                  <focusable value="true"/>
+                  <horizontalTextPosition value="11"/>
+                  <inheritsPopupMenu value="false"/>
+                  <maximumSize width="14" height="30"/>
+                  <minimumSize width="14" height="30"/>
+                  <preferredSize width="14" height="30"/>
+                  <requestFocusEnabled value="true"/>
                   <text value="Rimuovi materassi"/>
                   <verifyInputWhenFocusTarget value="true"/>
                   <verticalAlignment value="0"/>

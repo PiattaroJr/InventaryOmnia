@@ -24,7 +24,7 @@
               <defaultCapable value="true"/>
               <focusPainted value="false"/>
               <foreground color="-16777216"/>
-              <icon value="omnia.png"/>
+              <icon value="Img/omnia.png"/>
               <text value=""/>
               <visible value="true"/>
             </properties>
@@ -35,7 +35,7 @@
               <borderPainted value="false"/>
               <focusPainted value="false"/>
               <foreground color="-16777216"/>
-              <icon value="WhatsApp Image 2024-05-07 at 12.19.25.jpeg"/>
+              <icon value="Img/WhatsApp Image 2024-05-07 at 12.19.25.jpeg"/>
               <text value=""/>
             </properties>
           </component>

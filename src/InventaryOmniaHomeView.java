@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 public class InventaryOmniaHomeView extends JFrame {
     private JPanel RootPanel;
@@ -10,7 +11,7 @@ public class InventaryOmniaHomeView extends JFrame {
     private JButton removeButton;
     private JButton visualButton;
     private JPanel MenuPanel;
-    private JLabel homeLabel;
+    protected JLabel homeLabel;
     private JPanel EastPanel;
 
     public InventaryOmniaHomeView(){
@@ -24,4 +25,29 @@ public class InventaryOmniaHomeView extends JFrame {
         setVisible(true);
     }
 
+
+    /**
+     * AGGIUNTA DI METODI PER
+     * IL CONTROLLER:
+     *
+     * Guarda {@link Controller}
+     */
+
+    public void setMenuBotton(ActionListener action)
+    {
+        this.MenuBotton.addActionListener(action);
+    }
+
+    public JButton getMenuBotton(){
+        return this.MenuBotton;
+    }
+
+    public JPanel getMenuPanel() {
+        return this.MenuPanel;
+    }
+
+    public JPanel getRootPanel(){return this.RootPanel;}
+    public void setAddButton(ActionListener action){
+        this.addButton.addActionListener(action);
+    }
 }

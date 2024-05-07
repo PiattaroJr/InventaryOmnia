@@ -6,8 +6,14 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                InventaryOmniaHomeView homeView = new InventaryOmniaHomeView();
 
+                /**
+                * MODIFICA EFFETTUATA PER IL TESTING,
+                * GUARDA {@link Controller}
+                 */
+
+                Controller c = new Controller();
+                c.run();
 
             }
         });

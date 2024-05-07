@@ -21,8 +21,6 @@ public class InventaryOmniaHomeView extends JFrame {
 
 
         setVisible(true);
-
-
     }
 
 }

@@ -10,6 +10,7 @@ public class InventaryOmniaHomeView extends JFrame {
     private JButton removeButton;
     private JButton visualButton;
     private JPanel MenuPanel;
+    private JLabel homeLabel;
     private JPanel EastPanel;
 
     public InventaryOmniaHomeView(){

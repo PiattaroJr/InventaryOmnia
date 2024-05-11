@@ -1,11 +1,18 @@
+import javax.swing.*;
+
 public class InventaryOmniaAddView extends InventaryOmniaHomeView{
+    private JButton omniaButton;
+    private JButton menuButton;
+    private JButton homeButton;
+    private JButton visualizzaMaterassiButton;
+    private JButton rimuoviMaterassiButton;
+    private JPanel RootPanel;
+    private JPanel NorthPanel;
+    private JPanel CentralPanel;
+    private JPanel MenuPanel;
+
     public InventaryOmniaAddView()
     {
-        //setSize(600,500);
-        setContentPane(super.getRootPanel());
-        setVisible(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.homeLabel.setText("Sei nell' \"Add View\"");
     }
 }

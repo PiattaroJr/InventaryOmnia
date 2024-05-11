@@ -5,7 +5,7 @@ public class InventaryOmniaHomeView extends JFrame {
     private JPanel RootPanel;
     private JPanel NorthPanel;
     private JPanel CentralPanel;
-    private JButton MenuBotton;
+    private JButton menuBotton;
     private JButton omniaBotton;
     private JButton addButton;
     private JButton removeButton;
@@ -35,11 +35,11 @@ public class InventaryOmniaHomeView extends JFrame {
 
     public void setMenuBotton(ActionListener action)
     {
-        this.MenuBotton.addActionListener(action);
+        this.menuBotton.addActionListener(action);
     }
 
     public JButton getMenuBotton(){
-        return this.MenuBotton;
+        return this.menuBotton;
     }
 
     public JPanel getMenuPanel() {

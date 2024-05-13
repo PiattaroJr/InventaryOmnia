@@ -132,18 +132,5 @@ public class Controller {
             v.setHomeButton(actionChangeToHome);
             v.setOmniaButton(actionChangeToHome);
         }
-
-
-        /*
-        ActionListener actionChangeToAdd = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewManager.get(indexActualView).getMenuPanel().setVisible(false);
-                addView.setVisible(true);
-                homeView.setVisible(false);
-            }
-        };
-        homeView.setAddButton(actionChangeToAdd);
-        */
     }
 }

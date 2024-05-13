@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="InventaryOmniaAddView">
-  <grid id="27dc6" binding="RootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+  <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
@@ -60,13 +60,13 @@
                   <text value="Home"/>
                 </properties>
               </component>
-              <component id="16dbc" class="javax.swing.JButton" binding="visualizzaMaterassiButton" default-binding="true">
+              <component id="16dbc" class="javax.swing.JButton" binding="visualizeButton">
                 <constraints border-constraint="South"/>
                 <properties>
                   <text value="Visualizza Materassi"/>
                 </properties>
               </component>
-              <component id="f1773" class="javax.swing.JButton" binding="rimuoviMaterassiButton" default-binding="true">
+              <component id="f1773" class="javax.swing.JButton" binding="removeButton">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <text value="Rimuovi Materassi"/>

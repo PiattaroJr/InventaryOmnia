@@ -58,13 +58,13 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="7ac08" class="javax.swing.JButton" binding="aggiungiMaterassiButton" default-binding="true">
+              <component id="7ac08" class="javax.swing.JButton" binding="addButton">
                 <constraints border-constraint="North"/>
                 <properties>
                   <text value="Aggiungi Materassi"/>
                 </properties>
               </component>
-              <component id="e0c58" class="javax.swing.JButton" binding="rimuoviMaterassiButton" default-binding="true">
+              <component id="e0c58" class="javax.swing.JButton" binding="removeButton">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <text value="Rimuovi Materassi"/>

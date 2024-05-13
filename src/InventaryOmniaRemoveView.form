@@ -14,7 +14,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="b68ed" class="javax.swing.JButton" binding="button1" default-binding="true">
+          <component id="b68ed" class="javax.swing.JButton" binding="omniaButton">
             <constraints border-constraint="West"/>
             <properties>
               <background color="-16777216"/>
@@ -25,7 +25,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="1cc1b" class="javax.swing.JButton" binding="button2" default-binding="true">
+          <component id="1cc1b" class="javax.swing.JButton" binding="menuButton">
             <constraints border-constraint="East"/>
             <properties>
               <background color="-16777216"/>
@@ -55,22 +55,22 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="6a6fb" class="javax.swing.JButton" binding="aggiungiMaterassiButton" default-binding="true">
-                <constraints border-constraint="North"/>
-                <properties>
-                  <text value="Aggiungi Materassi"/>
-                </properties>
-              </component>
               <component id="897ca" class="javax.swing.JButton" binding="homeButton" default-binding="true">
                 <constraints border-constraint="Center"/>
                 <properties>
                   <text value="Home"/>
                 </properties>
               </component>
-              <component id="da10d" class="javax.swing.JButton" binding="visualizzaMaterassiButton" default-binding="true">
+              <component id="da10d" class="javax.swing.JButton" binding="visualizeButton">
                 <constraints border-constraint="South"/>
                 <properties>
                   <text value="Visualizza Materassi"/>
+                </properties>
+              </component>
+              <component id="5bfae" class="javax.swing.JButton" binding="addButton">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <text value="Aggiungi Materassi"/>
                 </properties>
               </component>
             </children>

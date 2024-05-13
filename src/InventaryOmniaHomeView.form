@@ -15,7 +15,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="4e2f5" class="javax.swing.JButton" binding="omniaBotton">
+          <component id="4e2f5" class="javax.swing.JButton" binding="omniaButton">
             <constraints border-constraint="West"/>
             <properties>
               <background color="-16777216"/>
@@ -29,7 +29,7 @@
               <visible value="true"/>
             </properties>
           </component>
-          <component id="334ce" class="javax.swing.JButton" binding="menuBotton">
+          <component id="334ce" class="javax.swing.JButton" binding="menuButton">
             <constraints border-constraint="East"/>
             <properties>
               <borderPainted value="false"/>
@@ -93,7 +93,7 @@
                   <visible value="true"/>
                 </properties>
               </component>
-              <component id="a866d" class="javax.swing.JButton" binding="visualButton">
+              <component id="a866d" class="javax.swing.JButton" binding="visualizeButton">
                 <constraints border-constraint="South"/>
                 <properties>
                   <text value="Visualizza Materassi"/>

@@ -5,18 +5,18 @@ public class InventaryOmniaHomeView extends JFrame {
     private JPanel RootPanel;
     private JPanel NorthPanel;
     private JPanel CentralPanel;
-    private JButton menuBotton;
-    private JButton omniaBotton;
+    private JButton menuButton;
+    private JButton omniaButton;
     private JButton addButton;
     private JButton removeButton;
-    private JButton visualButton;
+    private JButton visualizeButton;
     private JPanel MenuPanel;
-    protected JLabel homeLabel;
+    private JLabel homeLabel;
     private JPanel EastPanel;
 
     public InventaryOmniaHomeView(){
 
-        setContentPane(RootPanel);
+        setContentPane(this.RootPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,500);
 
@@ -33,21 +33,28 @@ public class InventaryOmniaHomeView extends JFrame {
      * Guarda {@link Controller}
      */
 
-    public void setMenuBotton(ActionListener action)
+    public void setMenuButtonListener(ActionListener action)
     {
-        this.menuBotton.addActionListener(action);
-    }
-
-    public JButton getMenuBotton(){
-        return this.menuBotton;
+        this.menuButton.addActionListener(action);
     }
 
     public JPanel getMenuPanel() {
         return this.MenuPanel;
     }
 
-    public JPanel getRootPanel(){return this.RootPanel;}
     public void setAddButton(ActionListener action){
         this.addButton.addActionListener(action);
+    }
+    public void setRemoveButton(ActionListener action){
+        this.removeButton.addActionListener(action);
+    }
+    public void setVisualizeButton(ActionListener action){
+        this.visualizeButton.addActionListener(action);
+    }
+
+    public void setHomeButton(ActionListener action) {}
+
+    public void setOmniaButton(ActionListener action) {
+        this.omniaButton.addActionListener(action);
     }
 }

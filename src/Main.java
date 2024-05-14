@@ -11,8 +11,10 @@ public class Main {
                 * GUARDA {@link Controller}
                  */
 
-                Controller c = new Controller();
-                c.run();
+                //Controller c = new Controller();
+                //c.run();
+
+                InventaryOmniaView view = new InventaryOmniaView();
 
             }
         });

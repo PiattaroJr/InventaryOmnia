@@ -112,7 +112,7 @@
             </constraints>
             <properties>
               <font name="Apple Chancery" size="48" style="2"/>
-              <text value="Benvenuto nella Home dell'inventario della OminaFlex!"/>
+              <text value="Benvenuto nella Home dell'inventario della OmniaFlex!"/>
             </properties>
           </component>
         </children>

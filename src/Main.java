@@ -6,15 +6,15 @@ public class Main {
             @Override
             public void run() {
 
+
+
                 /**
                 * MODIFICA EFFETTUATA PER IL TESTING,
                 * GUARDA {@link Controller}
                  */
 
-                //Controller c = new Controller();
-                //c.run();
-
-                InventaryOmniaView view = new InventaryOmniaView();
+                Controller c = new Controller();
+                c.run();
 
             }
         });

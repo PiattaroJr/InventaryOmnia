@@ -1,3 +1,8 @@
+import functionPanels.InventaryOmniaAddPanel;
+import functionPanels.InventaryOmniaHomePanel;
+import functionPanels.InventaryOmniaRemovePanel;
+import functionPanels.InventaryOmniaVisPanel;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -5,8 +10,15 @@ import java.util.ArrayList;
 
 public class Controller {
     private InventaryOmniaView mainView;
-    private int indexActualView = 0;
     private ArrayList<JPanel> viewManager;
+
+
+
+    /**
+     * Enumerazione chiamata "WindowsList":
+     * creata per facilitare il cambio di JPanel gestito dal controller
+     * nel cambio delle funzionalità dell'applicazione.
+     */
 
     public enum WindowsList {
         Home(0),
@@ -25,33 +37,34 @@ public class Controller {
 
     public Controller()
     {
+
+
+
+        /**
+         * Nel costruttore inizializzo un array contenenti i JPanel.
+         * Il JPanel di avvio ovviamente è la Home.
+         */
+
         mainView = new InventaryOmniaView();
         viewManager = new ArrayList<>();
-        viewManager.add(new InventaryOmniaHomeView());
-        viewManager.add(new InventaryOmniaAddView());
-        viewManager.add(new InventaryOmniaRemoveView());
-        viewManager.add(new InventaryOmniaVisualizeView());
 
+        viewManager.add(new InventaryOmniaHomePanel());
+        viewManager.add(new InventaryOmniaAddPanel());
+        viewManager.add(new InventaryOmniaRemovePanel());
+        viewManager.add(new InventaryOmniaVisPanel());
+
+        mainView.setCentralPanel(viewManager.get(WindowsList.Home.getValore()));
     }
 
     public void run(){
 
-        /**
-         * TENTATIVO DI PROVA PER IL MENUBOTTON:
-         *
-         * TEST PER PROVARE CHE IL BOTTONE MENU
-         * ATTIVI E DISATTIVI IL MENU CHE CONTIENE
-         * I PULSANTI PER AGGIUNGERE, RIMUOVERE
-         * E VISUALIZZARE MATERASSI.
-         *
-         */
 
 
         /**
          *
          * ACTIONLISTENER CHE GESTISCE
          * LA VISIONE O MENO DEI
-         * PULSANTI PER IL MENU
+         * PULSANTI PER IL MENU.
          *
          */
 
@@ -61,73 +74,73 @@ public class Controller {
                 mainView.getMenuPanel().setVisible(!mainView.getMenuPanel().isVisible());
             }
         };
-        mainView.setMenuButton();
+        mainView.setMenuButton(actionMenuBtn);
+
+
+
         /**
          *
          * ACTIONLISTENER CHE GESTISCE
-         * IL CAMBIO DI FINESTRA DA:
-         * All -> {@link InventaryOmniaAddView}
+         * IL CAMBIO DI JPanel DA:
+         * All -> {@link functionPanels.InventaryOmniaAddPanel}
          *
          */
 
         ActionListener actionChangeToAdd = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.get(indexActualView).setVisible(false);
-                viewManager.get(WindowsList.Add.getValore()).setVisible(true);
-                indexActualView = WindowsList.Add.getValore();
+                mainView.setCentralPanel(viewManager.get(WindowsList.Add.getValore()));
             }
         };
-        for(InventaryOmniaHomeView v : viewManager){
-            v.setAddButton(actionChangeToAdd);
-        }
+        mainView.setAddButton(actionChangeToAdd);
+
+
 
         /**
-         * All -> {@link InventaryOmniaRemoveView}
+         *
+         * All -> {@link functionPanels.InventaryOmniaRemovePanel}
+         *
          */
+
         ActionListener actionChangeToRemove = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.get(indexActualView).setVisible(false);
-                viewManager.get(WindowsList.Remove.getValore()).setVisible(true);
-                indexActualView = WindowsList.Remove.getValore();
+                mainView.setCentralPanel(viewManager.get(WindowsList.Remove.getValore()));
             }
         };
-        for(InventaryOmniaHomeView v : viewManager){
-            v.setRemoveButton(actionChangeToRemove);
-        }
+        mainView.setRemoveButton(actionChangeToRemove);
+
+
 
         /**
-         * All -> {@link InventaryOmniaVisualizeView}
+         *
+         * All -> {@link functionPanels.InventaryOmniaVisPanel}
+         *
          */
 
         ActionListener actionChangeToVisualize = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.get(indexActualView).setVisible(false);
-                viewManager.get(WindowsList.Visualize.getValore()).setVisible(true);
-                indexActualView = WindowsList.Visualize.getValore();
+                mainView.setCentralPanel(viewManager.get(WindowsList.Visualize.getValore()));
             }
         };
-        for(InventaryOmniaHomeView v : viewManager){
-            v.setVisualizeButton(actionChangeToVisualize);
-        }
+        mainView.setVisButton(actionChangeToVisualize);
+
+
 
         /**
-         * All -> {@link InventaryOmniaHomeView}
+         *
+         * All -> {@link functionPanels.InventaryOmniaHomePanel}
+         *
          */
 
         ActionListener actionChangeToHome = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.get(indexActualView).setVisible(false);
-                viewManager.get(WindowsList.Home.getValore()).setVisible(true);
-                indexActualView = WindowsList.Home.getValore();
+                mainView.setCentralPanel(viewManager.get(WindowsList.Home.getValore()));
             }
         };
-        for(InventaryOmniaHomeView v : viewManager){
-            v.setHomeButton(actionChangeToHome);
-            v.setOmniaButton(actionChangeToHome);
-        }
+        mainView.setOmniaButton(actionChangeToHome);
+
     }
 }

@@ -5,6 +5,8 @@ public class InventaryOmniaView extends JFrame {
     private JPanel rootPanel = new JPanel(new BorderLayout());
     private JPanel northPanel = new JPanel(new BorderLayout());
     private JButton omniaButton;
+    //private ImageIcon omniaImage = new ImageIcon("");
+
     private JButton menuButton;
     private JPanel centralPanel = new JPanel(new BorderLayout());
     private JPanel menuPanel = new JPanel(new BorderLayout());
@@ -15,7 +17,6 @@ public class InventaryOmniaView extends JFrame {
 
     public InventaryOmniaView() throws HeadlessException {
         getContentPane().setLayout(new BorderLayout());
-        //getContentPane(rootPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
         setLocationRelativeTo(null);     //centra il frame nello schermo
@@ -26,40 +27,50 @@ public class InventaryOmniaView extends JFrame {
         rootPanel.add(northPanel, BorderLayout.NORTH);
 
 
-        omniaButton = new JButton("omnia");
+        omniaButton = new JButton(new ImageIcon("/Users/piattarojr/Public/Codici/IdeaProject/Lavori/InventaryOmnia/src/Img/omnia.png"));
+        //omniaButton.setIcon(omniaImage);
         omniaButton.setEnabled(true);
+        omniaButton.setBackground(Color.black);
+        omniaButton.setBorderPainted(false);
+        omniaButton.setFocusPainted(false);
         northPanel.add(omniaButton, BorderLayout.WEST);
 
-        menuButton = new JButton("menu");
-        omniaButton.setEnabled(true);
+        menuButton = new JButton(new ImageIcon("/Users/piattarojr/Public/Codici/IdeaProject/Lavori/InventaryOmnia/src/Img/Menu_4_lines.jpeg"));
+        menuButton.setEnabled(true);
+        menuButton.setBackground(Color.black);
+        menuButton.setBorderPainted(false);
+        menuButton.setFocusPainted(false);
         northPanel.add(menuButton, BorderLayout.EAST);
 
-        menuPanel.setBackground(Color.black);
+        menuPanel.setBackground(Color.white);
+
 
         addButton = new JButton("Aggiungi materassi");
         addButton.setEnabled(true);
 
+
         removeButton = new JButton("Rimuovi materassi");
         removeButton.setEnabled(true);
+
 
         visButton = new JButton("Visualizza i materassi");
         visButton.setEnabled(true);
 
-        menuPanel.add(addButton, BorderLayout.NORTH);
-        menuPanel.add(removeButton, BorderLayout.CENTER);
-        menuPanel.add(visButton, BorderLayout.SOUTH);
 
-        menuPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        menuPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+        JPanel buttonsPanel = new JPanel(new GridLayout(3, 1));
+        buttonsPanel.add(addButton);
+        buttonsPanel.add(removeButton);
+        buttonsPanel.add(visButton);
+        buttonsPanel.setBackground(Color.blue);
 
-
-
+        menuPanel.add(buttonsPanel, BorderLayout.NORTH);
 
         centralPanel.add(menuPanel, BorderLayout.EAST);
 
-        //centralPanel.add();
-
         rootPanel.add(centralPanel, BorderLayout.CENTER);
+
+
+        menuPanel.setVisible(true);
 
         setVisible(true);
 

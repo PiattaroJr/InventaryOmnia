@@ -26,6 +26,7 @@
               <foreground color="-16777216"/>
               <icon value="Img/omnia.png"/>
               <text value=""/>
+              <verifyInputWhenFocusTarget value="true"/>
               <visible value="true"/>
             </properties>
           </component>

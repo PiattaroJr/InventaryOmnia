@@ -3,15 +3,12 @@ import java.awt.event.ActionListener;
 
 public class InventaryOmniaHomeView extends JFrame {
     private JPanel RootPanel;
-    private JPanel NorthPanel;
-    private JPanel CentralPanel;
     private JButton menuButton;
     private JButton omniaButton;
     private JButton addButton;
     private JButton removeButton;
     private JButton visualizeButton;
     private JPanel MenuPanel;
-    private JLabel homeLabel;
     private JPanel EastPanel;
 
     public InventaryOmniaHomeView(){

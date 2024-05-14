@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Controller {
-
+    private InventaryOmniaView mainView;
     private int indexActualView = 0;
-    private ArrayList<InventaryOmniaHomeView> viewManager;
+    private ArrayList<JPanel> viewManager;
 
     public enum WindowsList {
         Home(0),
@@ -25,6 +25,7 @@ public class Controller {
 
     public Controller()
     {
+        mainView = new InventaryOmniaView();
         viewManager = new ArrayList<>();
         viewManager.add(new InventaryOmniaHomeView());
         viewManager.add(new InventaryOmniaAddView());
@@ -57,14 +58,10 @@ public class Controller {
         ActionListener actionMenuBtn = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel tmp = viewManager.get(indexActualView).getMenuPanel();
-                tmp.setVisible(!tmp.isVisible());
+                mainView.getMenuPanel().setVisible(!mainView.getMenuPanel().isVisible());
             }
         };
-        for (InventaryOmniaHomeView v : viewManager) {
-            v.setMenuButtonListener(actionMenuBtn);
-        }
-
+        mainView.setMenuButton();
         /**
          *
          * ACTIONLISTENER CHE GESTISCE

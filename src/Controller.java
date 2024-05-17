@@ -13,7 +13,6 @@ public class Controller {
     private ArrayList<JPanel> viewManager;
 
 
-
     /**
      * Enumerazione chiamata "WindowsList":
      * creata per facilitare il cambio di JPanel gestito dal controller
@@ -54,6 +53,7 @@ public class Controller {
         viewManager.add(new InventaryOmniaVisPanel());
 
         mainView.setCentralPanel(viewManager.get(WindowsList.Home.getValore()));
+
     }
 
     public void run(){
@@ -141,6 +141,14 @@ public class Controller {
             }
         };
         mainView.setOmniaButton(actionChangeToHome);
+
+        ActionListener actionAddrow = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
+                viewManager.get(WindowsList.Visualize.getValore()).
+            }
+        };
 
     }
 }

@@ -153,8 +153,6 @@ public class InventaryOmniaView extends JFrame {
         return centralPanel;
     }
 
-
-
     public JPanel getMenuPanel() {
         return menuPanel;
     }

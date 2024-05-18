@@ -2,6 +2,7 @@ package functionPanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileWriter;
 import java.awt.*;
 import java.io.*;
 import org.json.simple.*;

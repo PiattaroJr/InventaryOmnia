@@ -142,13 +142,47 @@ public class Controller {
         };
         mainView.setOmniaButton(actionChangeToHome);
 
+
+
+        /**
+         *
+         * ActionListener per aggiungere righe alla VisPanel
+         *
+         */
+
         ActionListener actionAddrow = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
-                viewManager.get(WindowsList.Visualize.getValore()).
+                //viewManager.get(WindowsList.Visualize.getValore()).
             }
         };
+
+
+
+        ActionListener addNewMaterasso = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                boolean isValid = true;
+                InventaryOmniaAddPanel g = (InventaryOmniaAddPanel) viewManager.get(WindowsList.Add.getValore());
+                if(!g.getTextMolle().equals("1") || !g.getTextMolle().equals("0")){
+                    isValid = false;
+                }
+
+                if(isValid){
+
+                }else{
+                    System.out.println("Errore: l'attributo molle è un boolean!");
+                }
+
+            }
+        };
+
+
+
+
+
 
     }
 }

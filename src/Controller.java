@@ -10,49 +10,20 @@ import java.util.ArrayList;
 
 public class Controller {
     private InventaryOmniaView mainView;
-    private ArrayList<JPanel> viewManager;
-
-
-    /**
-     * Enumerazione chiamata "WindowsList":
-     * creata per facilitare il cambio di JPanel gestito dal controller
-     * nel cambio delle funzionalità dell'applicazione.
-     */
-
-    public enum WindowsList {
-        Home(0),
-        Add(1),
-        Remove(2),
-        Visualize(3);
-
-        private final int valore;
-        WindowsList(int valore){
-            this.valore = valore;
-        }
-        public int getValore(){
-            return this.valore;
-        }
-    }
+    private InventaryOmniaHomePanel homePanel = new InventaryOmniaHomePanel();
+    private InventaryOmniaAddPanel addPanel = new InventaryOmniaAddPanel();
+    private InventaryOmniaRemovePanel removePanel = new InventaryOmniaRemovePanel();
+    private InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
 
     public Controller()
     {
-
-
-
         /**
          * Nel costruttore inizializzo un array contenenti i JPanel.
          * Il JPanel di avvio ovviamente è la Home.
          */
 
         mainView = new InventaryOmniaView();
-        viewManager = new ArrayList<>();
-
-        viewManager.add(new InventaryOmniaHomePanel());
-        viewManager.add(new InventaryOmniaAddPanel());
-        viewManager.add(new InventaryOmniaRemovePanel());
-        viewManager.add(new InventaryOmniaVisPanel());
-
-        mainView.setCentralPanel(viewManager.get(WindowsList.Home.getValore()));
+        mainView.setCentralPanel(homePanel);
 
     }
 
@@ -89,7 +60,7 @@ public class Controller {
         ActionListener actionChangeToAdd = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainView.setCentralPanel(viewManager.get(WindowsList.Add.getValore()));
+                mainView.setCentralPanel(addPanel);
             }
         };
         mainView.setAddButton(actionChangeToAdd);
@@ -105,7 +76,7 @@ public class Controller {
         ActionListener actionChangeToRemove = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainView.setCentralPanel(viewManager.get(WindowsList.Remove.getValore()));
+                mainView.setCentralPanel(removePanel);
             }
         };
         mainView.setRemoveButton(actionChangeToRemove);
@@ -121,7 +92,7 @@ public class Controller {
         ActionListener actionChangeToVisualize = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainView.setCentralPanel(viewManager.get(WindowsList.Visualize.getValore()));
+                mainView.setCentralPanel(visualizePanel);
             }
         };
         mainView.setVisButton(actionChangeToVisualize);
@@ -137,7 +108,7 @@ public class Controller {
         ActionListener actionChangeToHome = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainView.setCentralPanel(viewManager.get(WindowsList.Home.getValore()));
+                mainView.setCentralPanel(homePanel);
             }
         };
         mainView.setOmniaButton(actionChangeToHome);
@@ -165,19 +136,12 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
 
                 boolean isValid = true;
-                InventaryOmniaAddPanel g = (InventaryOmniaAddPanel) viewManager.get(WindowsList.Add.getValore());
-                if(!g.getTextMolle().equals("1") || !g.getTextMolle().equals("0")){
-                    isValid = false;
-                }
+                System.out.println(addPanel.isSelectedMolle());
 
-                if(isValid){
-
-                }else{
-                    System.out.println("Errore: l'attributo molle è un boolean!");
-                }
 
             }
         };
+        addPanel.setSendButton(addNewMaterasso);
 
 
 

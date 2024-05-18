@@ -3,6 +3,8 @@ package functionPanels;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class InventaryOmniaAddPanel extends JPanel {
     private JButton sendButton = new JButton("Invia!");
@@ -25,6 +27,7 @@ public class InventaryOmniaAddPanel extends JPanel {
     private JLabel molleLabel = new JLabel("  Molle: ");
 
 
+
     /**
      * Attributi per i textField
      */
@@ -34,7 +37,8 @@ public class InventaryOmniaAddPanel extends JPanel {
     private JTextField altezzaTextField = new JTextField();
     private JTextField lunghezzaTextField = new JTextField();
     private JTextField spessoreTextField = new JTextField();
-    private JTextField molleTextField = new JTextField();
+    private JCheckBox molleCheckBox = new JCheckBox();
+
 
 
     public InventaryOmniaAddPanel(){
@@ -77,21 +81,20 @@ public class InventaryOmniaAddPanel extends JPanel {
         altezzaTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         lunghezzaTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         spessoreTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        molleTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         tipoTextField.setFont(boldFont);
         idTextField.setFont(boldFont);
         altezzaTextField.setFont(boldFont);
         lunghezzaTextField.setFont(boldFont);
         spessoreTextField.setFont(boldFont);
-        molleTextField.setFont(boldFont);
 
         rightPanel.add(tipoTextField);
         rightPanel.add(idTextField);
         rightPanel.add(altezzaTextField);
         rightPanel.add(lunghezzaTextField);
         rightPanel.add(spessoreTextField);
-        rightPanel.add(molleTextField);
+        rightPanel.add(molleCheckBox);
+
 
 
         splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
@@ -118,12 +121,40 @@ public class InventaryOmniaAddPanel extends JPanel {
     public String getTextSpessore(){
         return this.tipoTextField.getText();
     }
-    public String getTextMolle(){
-        return this.tipoTextField.getText();
+    public boolean isSelectedMolle(){
+        return this.molleCheckBox.isSelected();
+    }
+    public void setSendButton(ActionListener action){
+        sendButton.addActionListener(action);
     }
 
 
-    public void setSendButton(ActionListener action){
-        sendButton.addActionListener(action);
+
+    /**
+     * Metodo per applicare il pretesto ad un textField.
+     * @param f
+     * @param s
+     */
+    public void applyShadow(JTextField f, String s)
+    {
+        f.setText(s);
+        f.setForeground(Color.gray);
+        f.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(f.getText().equals(s)) {
+                    f.setText("");
+                    f.setForeground(Color.black);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(f.getText().isEmpty()) {
+                    f.setText(s);
+                    f.setForeground(Color.gray);
+                }
+            }
+        });
     }
 }

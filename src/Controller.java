@@ -3,6 +3,7 @@ import functionPanels.InventaryOmniaHomePanel;
 import functionPanels.InventaryOmniaRemovePanel;
 import functionPanels.InventaryOmniaVisPanel;
 
+import javax.naming.ldap.SortResponseControl;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ public class Controller {
     private InventaryOmniaRemovePanel removePanel = new InventaryOmniaRemovePanel();
     private InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
 
+    private Materasso materassoTmp;
+
     public Controller()
     {
         /**
@@ -24,6 +27,14 @@ public class Controller {
 
         mainView = new InventaryOmniaView();
         mainView.setCentralPanel(homePanel);
+
+
+
+        /**
+         * Materasso temporaneo
+         */
+
+        materassoTmp = new Materasso();
 
     }
 
@@ -126,8 +137,13 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 //addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
                 //viewManager.get(WindowsList.Visualize.getValore()).
+                visualizePanel.
             }
         };
+
+
+
+
 
 
 
@@ -135,13 +151,34 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                boolean isValid = true;
-                System.out.println(addPanel.isSelectedMolle());
+                ArrayList<String> tmp = addPanel.getMaterassoData();
+                materassoTmp.setTipo(tmp.get(0));
+                materassoTmp.setId(tmp.get(1));
+                materassoTmp.setAltezza(Integer.parseInt(tmp.get(2)));
+                materassoTmp.setLunghezza(Integer.parseInt(tmp.get(3)));
+                materassoTmp.setSpessore(Integer.parseInt(tmp.get(4)));
+                materassoTmp.setMolle(Boolean.parseBoolean(tmp.get(5)));
 
 
+
+                /**
+                 * Selezione che controlla se il materasso esiste già
+                 */
+
+                if(true){
+                    visualizePanel.aggiungiRiga();
+
+                }
+
+            }
+
+            // Metodo per aggiungere una riga alla tabella
+            public void aggiungiRiga() {
+                model.addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
             }
         };
         addPanel.setSendButton(addNewMaterasso);
+
 
 
 

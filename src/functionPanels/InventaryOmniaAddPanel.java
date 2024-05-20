@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 public class InventaryOmniaAddPanel extends JPanel {
     private JButton sendButton = new JButton("Invia!");
@@ -12,6 +13,7 @@ public class InventaryOmniaAddPanel extends JPanel {
     private JPanel leftPanel = new JPanel(new GridLayout(6,1));
     private JPanel rightPanel = new JPanel(new GridLayout(6,1));
     private Font boldFont = new Font("Arial", Font.BOLD, 25);
+    private ArrayList<String> dataMateTmp = new ArrayList<>();
 
 
 
@@ -129,6 +131,31 @@ public class InventaryOmniaAddPanel extends JPanel {
     }
 
 
+
+    /**
+     * Metodo che invia i dati del materasso al Controller.
+     * @return
+     */
+
+    public ArrayList<String> getMaterassoData(){
+        dataMateTmp.clear();
+        dataMateTmp.add(getTextTipo());
+        dataMateTmp.add(getTextId());
+        dataMateTmp.add(getTextAltezza());
+        dataMateTmp.add(getTextLunghezza());
+        dataMateTmp.add(getTextSpessore());
+        if(isSelectedMolle())
+            dataMateTmp.add("true");
+        else
+            dataMateTmp.add("false");
+
+        return dataMateTmp;
+    }
+
+
+    public JButton getSendButton() {
+        return sendButton;
+    }
 
     /**
      * Metodo per applicare il pretesto ad un textField.

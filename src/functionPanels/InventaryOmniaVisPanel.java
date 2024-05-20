@@ -26,9 +26,9 @@ public class InventaryOmniaVisPanel extends JPanel {
 
 
         // Dati preimpostati nella prima riga della tabella
-        Object[] columns = {"", "ID","Materasso", "Numero pezzi materasso", "Lunghezza", "Larghezza", "Spessore"};
+        Object[] columns = {"Pezzi", "ID","Materasso", "Numero pezzi materasso", "Lunghezza", "Larghezza", "Spessore"};
         Object[][] data = {
-                {"Dato 1-1", "Dato 1-2", "Dato 1-3"}
+                {"", "", "", "", "", "", ""}
         };
 
         // Creazione del modello della tabella
@@ -47,9 +47,11 @@ public class InventaryOmniaVisPanel extends JPanel {
     }
 
     // Metodo per aggiungere una riga alla tabella
-    public void aggiungiRiga() {
-        model.addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
+    public void aggiungiRiga(String tipo, String id, String altezza, String lunghezza, String spessore, String molle) {
+        model.addRow(new Object[]{pezzi, id, tipo});
     }
+
+    //public void set
 
     /*
     private JSONArray readOrCreateJSONFile(String filename) {

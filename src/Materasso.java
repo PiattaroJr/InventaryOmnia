@@ -11,7 +11,7 @@ public class Materasso {
     public Materasso() {
     }
 
-    public Materasso(String tipo, String id, int altezza, int lunghezza, int spessore, boolean molle) {
+    public Materasso(String id, String tipo, int altezza, int lunghezza, int spessore, boolean molle) {
         this.tipo = tipo;
         this.id = id;
         this.altezza = altezza;
@@ -60,7 +60,7 @@ public class Materasso {
         this.spessore = spessore;
     }
 
-    public boolean isMolle() {
+    public boolean hasMolle() {
         return molle;
     }
 

@@ -112,16 +112,16 @@ public class InventaryOmniaAddPanel extends JPanel {
         return this.tipoTextField.getText();
     }
     public String getTextId(){
-        return this.tipoTextField.getText();
+        return this.idTextField.getText();
     }
     public String getTextAltezza(){
-        return this.tipoTextField.getText();
+        return this.altezzaTextField.getText();
     }
     public String getTextLunghezza(){
-        return this.tipoTextField.getText();
+        return this.lunghezzaTextField.getText();
     }
     public String getTextSpessore(){
-        return this.tipoTextField.getText();
+        return this.spessoreTextField.getText();
     }
     public boolean isSelectedMolle(){
         return this.molleCheckBox.isSelected();
@@ -157,11 +157,14 @@ public class InventaryOmniaAddPanel extends JPanel {
         return sendButton;
     }
 
+
+
     /**
      * Metodo per applicare il pretesto ad un textField.
      * @param f
      * @param s
      */
+
     public void applyShadow(JTextField f, String s)
     {
         f.setText(s);

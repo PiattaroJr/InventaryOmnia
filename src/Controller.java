@@ -3,8 +3,6 @@ import functionPanels.InventaryOmniaHomePanel;
 import functionPanels.InventaryOmniaRemovePanel;
 import functionPanels.InventaryOmniaVisPanel;
 
-import javax.naming.ldap.SortResponseControl;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class Controller {
     private InventaryOmniaRemovePanel removePanel = new InventaryOmniaRemovePanel();
     private InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
 
-    private Materasso materassoTmp;
+    private Materasso toAddMaterasso;
 
     public Controller()
     {
@@ -34,7 +32,7 @@ public class Controller {
          * Materasso temporaneo
          */
 
-        materassoTmp = new Materasso();
+        toAddMaterasso = new Materasso();
 
     }
 
@@ -131,7 +129,7 @@ public class Controller {
          * ActionListener per aggiungere righe alla VisPanel
          *
          */
-
+/*
         ActionListener actionAddrow = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,7 +139,7 @@ public class Controller {
             }
         };
 
-
+*/
 
 
 
@@ -151,30 +149,48 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                int nRow;
+                Object objContainer;
+                Integer nPezziContainer;
+                Boolean isEqual = false;
+                Object[] tmpDataObject;
+                Materasso tmpRow;
                 ArrayList<String> tmp = addPanel.getMaterassoData();
-                materassoTmp.setTipo(tmp.get(0));
-                materassoTmp.setId(tmp.get(1));
-                materassoTmp.setAltezza(Integer.parseInt(tmp.get(2)));
-                materassoTmp.setLunghezza(Integer.parseInt(tmp.get(3)));
-                materassoTmp.setSpessore(Integer.parseInt(tmp.get(4)));
-                materassoTmp.setMolle(Boolean.parseBoolean(tmp.get(5)));
+                System.out.println(tmp);
+                toAddMaterasso.setId(tmp.get(0));
+                toAddMaterasso.setTipo(tmp.get(1));
+                toAddMaterasso.setAltezza(Integer.parseInt(tmp.get(2)));
+                toAddMaterasso.setLunghezza(Integer.parseInt(tmp.get(3)));
+                toAddMaterasso.setSpessore(Integer.parseInt(tmp.get(4)));
+                toAddMaterasso.setMolle(Boolean.parseBoolean(tmp.get(5)));
 
 
 
                 /**
+                 *
                  * Selezione che controlla se il materasso esiste già
+                 *
                  */
 
-                if(true){
-                    visualizePanel.aggiungiRiga();
+                nRow = visualizePanel.getNRow();
+
+                for(int i = 0; i < nRow && !isEqual; i++){
+                    tmpDataObject = visualizePanel.getRowData(i);
+                    tmpRow = new Materasso((String) tmpDataObject[1], (String) tmpDataObject[2], Integer.parseInt((String) tmpDataObject[3]), Integer.parseInt((String) tmpDataObject[4]), Integer.parseInt((String)tmpDataObject[5]), Boolean.parseBoolean((String)tmpDataObject[6]));
+
+
+                    if(toAddMaterasso.equals(tmpRow)){
+                        isEqual = true;
+                        nPezziContainer = (Integer) tmpDataObject[0] + 1;
+                        visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
+                    }
+                }
+
+                if(!isEqual){
+                    visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
 
                 }
 
-            }
-
-            // Metodo per aggiungere una riga alla tabella
-            public void aggiungiRiga() {
-                model.addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
             }
         };
         addPanel.setSendButton(addNewMaterasso);

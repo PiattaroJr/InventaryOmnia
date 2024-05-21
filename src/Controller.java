@@ -171,7 +171,7 @@ public class Controller {
                  * Selezione che controlla se il materasso esiste già
                  *
                  */
-
+/*
                 nRow = visualizePanel.getNRow();
 
                 for(int i = 0; i < nRow && !isEqual; i++){
@@ -185,7 +185,7 @@ public class Controller {
                         visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
                     }
                 }
-
+*/
                 if(!isEqual){
                     visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
 

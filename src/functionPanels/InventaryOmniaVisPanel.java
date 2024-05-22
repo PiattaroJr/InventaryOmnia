@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.io.FileWriter;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
@@ -74,7 +76,7 @@ public class InventaryOmniaVisPanel extends JPanel {
      */
 
     public void aggiungiRiga(String id, String tipo, int altezza, int lunghezza, int spessore, boolean molle) {
-        String pezzi = "PROVA";
+        Integer pezzi = 1;
         model.addRow(new Object[]{pezzi, id, tipo, altezza, lunghezza, spessore, molle});
     }
 
@@ -97,13 +99,13 @@ public class InventaryOmniaVisPanel extends JPanel {
      *
      */
 
-    public Object[] getRowData(int rowIndex){
-        Object[] rowData = new Object[7];
-        for(int i = 0; i < 7; i++){;
-            rowData[i] = model.getValueAt(rowIndex, i);
+     public ArrayList<Object> getRowData(int rowIndex){
+        ArrayList<Object> rowData = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            rowData.add(model.getValueAt(rowIndex, i));
         }
         return rowData;
-    }
+     }
 
     /**
      *

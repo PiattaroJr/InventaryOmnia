@@ -150,13 +150,12 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
 
                 int nRow;
-                Object objContainer;
-                Integer nPezziContainer;
-                Boolean isEqual = false;
-                Object[] tmpDataObject;
+                String tmpId, tmpTipo;
+                Integer nPezziContainer, tmpAltezza, tmpLunghezza, tmpSpessore, tmpPezzi;
+                Boolean isEqual = false, tmpMolle;
+                ArrayList<Object> tmpDataObject;
                 Materasso tmpRow;
                 ArrayList<String> tmp = addPanel.getMaterassoData();
-                System.out.println(tmp);
                 toAddMaterasso.setId(tmp.get(0));
                 toAddMaterasso.setTipo(tmp.get(1));
                 toAddMaterasso.setAltezza(Integer.parseInt(tmp.get(2)));
@@ -171,21 +170,30 @@ public class Controller {
                  * Selezione che controlla se il materasso esiste già
                  *
                  */
-/*
+
                 nRow = visualizePanel.getNRow();
+                System.out.println(nRow);
 
-                for(int i = 0; i < nRow && !isEqual; i++){
+                for(int i = 1; i < nRow && !isEqual; i++){
                     tmpDataObject = visualizePanel.getRowData(i);
-                    tmpRow = new Materasso((String) tmpDataObject[1], (String) tmpDataObject[2], Integer.parseInt((String) tmpDataObject[3]), Integer.parseInt((String) tmpDataObject[4]), Integer.parseInt((String)tmpDataObject[5]), Boolean.parseBoolean((String)tmpDataObject[6]));
+                    tmpPezzi = (Integer) tmpDataObject.get(0);
+                    tmpId = (String) tmpDataObject.get(1);
+                    tmpTipo = (String) tmpDataObject.get(2);
+                    tmpAltezza = (Integer) tmpDataObject.get(3);
+                    tmpLunghezza = (Integer) tmpDataObject.get(4);
+                    tmpSpessore = (Integer) tmpDataObject.get(5);
+                    tmpMolle = (Boolean) tmpDataObject.get(6);
+                    tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza, tmpLunghezza, tmpSpessore, tmpMolle);
 
+                    System.out.println(tmpRow);
 
                     if(toAddMaterasso.equals(tmpRow)){
                         isEqual = true;
-                        nPezziContainer = (Integer) tmpDataObject[0] + 1;
+                        nPezziContainer = tmpPezzi + 1;
                         visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
                     }
                 }
-*/
+
                 if(!isEqual){
                     visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
 

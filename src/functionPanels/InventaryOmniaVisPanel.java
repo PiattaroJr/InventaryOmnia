@@ -16,6 +16,8 @@ public class InventaryOmniaVisPanel extends JPanel {
 
     public InventaryOmniaVisPanel(){
 
+        setLayout(new BorderLayout());
+
         // Leggi o crea il file JSON e ottieni i dati
         //JSONArray jsonData = readOrCreateJSONFile("data.json");
 
@@ -41,10 +43,7 @@ public class InventaryOmniaVisPanel extends JPanel {
 
         // Aggiungo la tabella ad uno scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
-
-
-
+        add(scrollPane, BorderLayout.CENTER);
 
 
 

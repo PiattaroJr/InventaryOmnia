@@ -14,6 +14,7 @@ public class InventaryOmniaVisPanel extends JPanel {
     private DefaultTableModel model;
     private JTable table;
     JButton addButton = new JButton("Aggiungi riga");
+    private JButton saveButton = new JButton("Salva inventario");
     //private JTable table = new JTable(10,10);
 
     public InventaryOmniaVisPanel(){
@@ -48,6 +49,14 @@ public class InventaryOmniaVisPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
 
+        /**
+         *
+         * Pulsante per salvare tutto l'inventario nel file json
+         *
+         */
+
+        saveButton.addActionListener(e -> saveTableDataToJSON("data.json"));
+        add(saveButton, BorderLayout.SOUTH);
 
         /**
          *
@@ -173,4 +182,28 @@ public class InventaryOmniaVisPanel extends JPanel {
         add(scrollPane);
     }
      */
+
+    // Method to save table data to JSON
+    public void saveTableDataToJSON(String filename) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Pezzi", model.getValueAt(i, 0));
+            jsonObject.put("ID", model.getValueAt(i, 1));
+            jsonObject.put("Tipo", model.getValueAt(i, 2));
+            jsonObject.put("Altezza", model.getValueAt(i, 3));
+            jsonObject.put("Lunghezza", model.getValueAt(i, 4));
+            jsonObject.put("Spessore", model.getValueAt(i, 5));
+            jsonObject.put("Molle", model.getValueAt(i, 6));
+            jsonArray.add(jsonObject);
+        }
+
+        try (FileWriter file = new FileWriter(filename)) {
+            file.write(jsonArray.toJSONString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

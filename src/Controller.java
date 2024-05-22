@@ -2,9 +2,19 @@ import functionPanels.InventaryOmniaAddPanel;
 import functionPanels.InventaryOmniaHomePanel;
 import functionPanels.InventaryOmniaRemovePanel;
 import functionPanels.InventaryOmniaVisPanel;
+import org.json.simple.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -35,6 +45,60 @@ public class Controller {
         toAddMaterasso = new Materasso();
 
     }
+
+    private JSONArray readOrCreateJSONFile(String filename) {
+        JSONParser parser = new JSONParser();
+        JSONArray jsonData = null;
+
+        try {
+            File file = new File(filename);
+            if (file.exists()) {
+                Object obj = parser.parse(new FileReader(filename));
+                jsonData = (JSONArray) obj;
+            } else {
+                // Crea il file e inizializza con un array vuoto
+                FileWriter fileWriter = new FileWriter(filename);
+                fileWriter.write("[]");
+                fileWriter.close();
+                jsonData = new JSONArray();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return jsonData;
+    }
+
+    private JScrollPane populateGrid(JSONArray jsonData) {
+        // Ottieni il numero di righe e colonne
+        int numRows = jsonData.size();
+        int numCols = ((JSONObject) jsonData.getFirst()).keySet().size();
+
+        // Crea la griglia
+        String[] columnNames = new String[numCols];
+        Object[][] rowData = new Object[numRows][numCols];
+
+        // Popola i nomi delle colonne
+        int colIndex = 0;
+        for (Object key : ((JSONObject) jsonData.getFirst()).keySet()) {
+            columnNames[colIndex++] = (String) key;
+        }
+
+        // Popola i dati delle righe
+        for (int i = 0; i < numRows; i++) {
+            JSONObject row = (JSONObject) jsonData.get(i);
+            int j = 0;
+            for (Object key : row.keySet()) {
+                rowData[i][j++] = row.get(key);
+            }
+        }
+
+        // Crea la tabella e aggiungila al panel
+        JTable table = new JTable(rowData, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+        return scrollPane;
+    }
+
 
     public void run(){
 
@@ -207,6 +271,37 @@ public class Controller {
 
 
 
+        ActionListener saveButtonAction = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DefaultTableModel model = visualizePanel.getModel();
+                saveTableDataToJSON(model, "data.json");
+            }
+
+            public void saveTableDataToJSON(DefaultTableModel model, String filename) {
+                JSONArray jsonArray = new JSONArray();
+
+                for (int i = 0; i < model.getRowCount(); i++) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("Pezzi", model.getValueAt(i, 0));
+                    jsonObject.put("ID", model.getValueAt(i, 1));
+                    jsonObject.put("Tipo", model.getValueAt(i, 2));
+                    jsonObject.put("Altezza", model.getValueAt(i, 3));
+                    jsonObject.put("Lunghezza", model.getValueAt(i, 4));
+                    jsonObject.put("Spessore", model.getValueAt(i, 5));
+                    jsonObject.put("Molle", model.getValueAt(i, 6));
+                    jsonArray.add(jsonObject);
+                }
+
+                try (FileWriter file = new FileWriter(filename)) {
+                    file.write(jsonArray.toJSONString());
+                    file.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        visualizePanel.setSaveButton(saveButtonAction);
 
 
     }

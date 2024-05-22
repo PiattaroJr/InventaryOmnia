@@ -2,6 +2,7 @@ package functionPanels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.awt.*;
 import java.io.*;
@@ -49,14 +50,6 @@ public class InventaryOmniaVisPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
 
-        /**
-         *
-         * Pulsante per salvare tutto l'inventario nel file json
-         *
-         */
-
-        saveButton.addActionListener(e -> saveTableDataToJSON("data.json"));
-        add(saveButton, BorderLayout.SOUTH);
 
         /**
          *
@@ -64,12 +57,22 @@ public class InventaryOmniaVisPanel extends JPanel {
          *
          */
 
-        addButton.addActionListener(e -> aggiungiRiga("prova", "prova", 1, 1, 1, false));
-        add(addButton, "South");
+        add(saveButton, "South");
 
         setVisible(true);
     }
 
+
+    /**
+     *
+     * Metodo che restituisce il model
+     * @return
+     *
+     */
+
+    public DefaultTableModel getModel() {
+        return this.model;
+    }
 
 
     /**
@@ -128,82 +131,13 @@ public class InventaryOmniaVisPanel extends JPanel {
 
     //public void set
 
-    /*
-    private JSONArray readOrCreateJSONFile(String filename) {
-        JSONParser parser = new JSONParser();
-        JSONArray jsonData = null;
 
-        try {
-            File file = new File(filename);
-            if (file.exists()) {
-                Object obj = parser.parse(new FileReader(filename));
-                jsonData = (JSONArray) obj;
-            } else {
-                // Crea il file e inizializza con un array vuoto
-                FileWriter fileWriter = new FileWriter(filename);
-                fileWriter.write("[]");
-                fileWriter.close();
-                jsonData = new JSONArray();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return jsonData;
-    }
-
-    private void populateGrid(JSONArray jsonData) {
-        // Ottieni il numero di righe e colonne
-        int numRows = jsonData.size();
-        int numCols = ((JSONObject) jsonData.getFirst()).keySet().size();
-
-        // Crea la griglia
-        String[] columnNames = new String[numCols];
-        Object[][] rowData = new Object[numRows][numCols];
-
-        // Popola i nomi delle colonne
-        int colIndex = 0;
-        for (Object key : ((JSONObject) jsonData.getFirst()).keySet()) {
-            columnNames[colIndex++] = (String) key;
-        }
-
-        // Popola i dati delle righe
-        for (int i = 0; i < numRows; i++) {
-            JSONObject row = (JSONObject) jsonData.get(i);
-            int j = 0;
-            for (Object key : row.keySet()) {
-                rowData[i][j++] = row.get(key);
-            }
-        }
-
-        // Crea la tabella e aggiungila al panel
-        table = new JTable(rowData, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
-    }
-     */
 
     // Method to save table data to JSON
-    public void saveTableDataToJSON(String filename) {
-        JSONArray jsonArray = new JSONArray();
 
-        for (int i = 0; i < model.getRowCount(); i++) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("Pezzi", model.getValueAt(i, 0));
-            jsonObject.put("ID", model.getValueAt(i, 1));
-            jsonObject.put("Tipo", model.getValueAt(i, 2));
-            jsonObject.put("Altezza", model.getValueAt(i, 3));
-            jsonObject.put("Lunghezza", model.getValueAt(i, 4));
-            jsonObject.put("Spessore", model.getValueAt(i, 5));
-            jsonObject.put("Molle", model.getValueAt(i, 6));
-            jsonArray.add(jsonObject);
-        }
-
-        try (FileWriter file = new FileWriter(filename)) {
-            file.write(jsonArray.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setSaveButton(ActionListener action){
+        this.saveButton.addActionListener(action);
     }
+
+
 }

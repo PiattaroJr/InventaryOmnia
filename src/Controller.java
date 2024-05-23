@@ -72,7 +72,7 @@ public class Controller {
     private JScrollPane populateGrid(JSONArray jsonData) {
         // Ottieni il numero di righe e colonne
         int numRows = jsonData.size();
-        int numCols = ((JSONObject) jsonData.getFirst()).keySet().size();
+        int numCols = ((JSONObject) jsonData.get(0)).keySet().size();
 
         // Crea la griglia
         String[] columnNames = new String[numCols];
@@ -80,7 +80,7 @@ public class Controller {
 
         // Popola i nomi delle colonne
         int colIndex = 0;
-        for (Object key : ((JSONObject) jsonData.getFirst()).keySet()) {
+        for (Object key : ((JSONObject) jsonData.get(0)).keySet()) {
             columnNames[colIndex++] = (String) key;
         }
 

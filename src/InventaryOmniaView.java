@@ -197,8 +197,6 @@ public class InventaryOmniaView extends JFrame {
         centralPanel.remove(functionsPanel);
         this.functionsPanel = centralPanelToChange;
         centralPanel.add(functionsPanel, BorderLayout.CENTER);
-        repaint();
-        revalidate();
 
     }
 }

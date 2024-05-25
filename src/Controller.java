@@ -23,7 +23,6 @@ public class Controller {
     private InventaryOmniaAddPanel addPanel = new InventaryOmniaAddPanel();
     private InventaryOmniaRemovePanel removePanel = new InventaryOmniaRemovePanel();
     private InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
-
     private Materasso toAddMaterasso;
 
     public Controller()
@@ -45,60 +44,6 @@ public class Controller {
         toAddMaterasso = new Materasso();
 
     }
-
-    private JSONArray readOrCreateJSONFile(String filename) {
-        JSONParser parser = new JSONParser();
-        JSONArray jsonData = null;
-
-        try {
-            File file = new File(filename);
-            if (file.exists()) {
-                Object obj = parser.parse(new FileReader(filename));
-                jsonData = (JSONArray) obj;
-            } else {
-                // Crea il file e inizializza con un array vuoto
-                FileWriter fileWriter = new FileWriter(filename);
-                fileWriter.write("[]");
-                fileWriter.close();
-                jsonData = new JSONArray();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return jsonData;
-    }
-
-    private JScrollPane populateGrid(JSONArray jsonData) {
-        // Ottieni il numero di righe e colonne
-        int numRows = jsonData.size();
-        int numCols = ((JSONObject) jsonData.get(0)).keySet().size();
-
-        // Crea la griglia
-        String[] columnNames = new String[numCols];
-        Object[][] rowData = new Object[numRows][numCols];
-
-        // Popola i nomi delle colonne
-        int colIndex = 0;
-        for (Object key : ((JSONObject) jsonData.get(0)).keySet()) {
-            columnNames[colIndex++] = (String) key;
-        }
-
-        // Popola i dati delle righe
-        for (int i = 0; i < numRows; i++) {
-            JSONObject row = (JSONObject) jsonData.get(i);
-            int j = 0;
-            for (Object key : row.keySet()) {
-                rowData[i][j++] = row.get(key);
-            }
-        }
-
-        // Crea la tabella e aggiungila al panel
-        JTable table = new JTable(rowData, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
-        return scrollPane;
-    }
-
 
     public void run(){
 
@@ -134,6 +79,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.setCentralPanel(addPanel);
+                mainView.repaint();
+                mainView.revalidate();
             }
         };
         mainView.setAddButton(actionChangeToAdd);
@@ -150,6 +97,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.setCentralPanel(removePanel);
+                mainView.repaint();
+                mainView.revalidate();
             }
         };
         mainView.setRemoveButton(actionChangeToRemove);
@@ -166,6 +115,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.setCentralPanel(visualizePanel);
+                mainView.repaint();
+                mainView.revalidate();
             }
         };
         mainView.setVisButton(actionChangeToVisualize);
@@ -182,32 +133,20 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainView.setCentralPanel(homePanel);
+                mainView.repaint();
+                mainView.revalidate();
             }
         };
         mainView.setOmniaButton(actionChangeToHome);
 
 
 
+
+
+
         /**
-         *
-         * ActionListener per aggiungere righe alla VisPanel
-         *
+         * ActionListener per l'aggiunta di Materassi
          */
-/*
-        ActionListener actionAddrow = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //addRow(new Object[]{"Nuovo dato", "Nuovo dato", "Nuovo dato"});
-                //viewManager.get(WindowsList.Visualize.getValore()).
-                visualizePanel.
-            }
-        };
-
-*/
-
-
-
-
 
         ActionListener addNewMaterasso = new ActionListener() {
             @Override
@@ -269,7 +208,9 @@ public class Controller {
 
 
 
-
+        /**
+         *  ActionListener per il saveButton.
+         */
 
         ActionListener saveButtonAction = new ActionListener() {
             @Override
@@ -303,6 +244,77 @@ public class Controller {
         };
         visualizePanel.setSaveButton(saveButtonAction);
 
+
+
+        /**
+         * ActionListener per caricare i dati salvati
+         */
+
+        ActionListener caricaButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JSONArray materassiJSON = readOrCreateJSONFile("data.json");
+                JScrollPane loadedTable = populateGrid(materassiJSON);
+                visualizePanel.setTableContainer(loadedTable);
+                visualizePanel.repaint();
+                visualizePanel.revalidate();
+            }
+
+            private JSONArray readOrCreateJSONFile(String filename) {
+                JSONParser parser = new JSONParser();
+                JSONArray jsonData = null;
+
+                try {
+                    File file = new File(filename);
+                    if (file.exists()) {
+                        Object obj = parser.parse(new FileReader(filename));
+                        System.out.println(obj);
+                        jsonData = (JSONArray) obj;
+                    } else {
+                        // Crea il file e inizializza con un array vuoto
+                        FileWriter fileWriter = new FileWriter(filename);
+                        fileWriter.write("[]");
+                        fileWriter.close();
+                        jsonData = new JSONArray();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return jsonData;
+            }
+
+            private JScrollPane populateGrid(JSONArray jsonData) {
+                // Ottieni il numero di righe e colonne
+                int numRows = jsonData.size();
+                int numCols = ((JSONObject) jsonData.get(0)).keySet().size();
+
+                // Crea la griglia
+                String[] columnNames = new String[numCols];
+                Object[][] rowData = new Object[numRows][numCols];
+
+                // Popola i nomi delle colonne
+                int colIndex = 0;
+                for (Object key : ((JSONObject) jsonData.get(0)).keySet()) {
+                    columnNames[colIndex++] = (String) key;
+                }
+
+                // Popola i dati delle righe
+                for (int i = 0; i < numRows; i++) {
+                    JSONObject row = (JSONObject) jsonData.get(i);
+                    int j = 0;
+                    for (Object key : row.keySet()) {
+                        rowData[i][j++] = row.get(key);
+                    }
+                }
+
+                // Crea la tabella e aggiungila al panel
+                JTable table = new JTable(rowData, columnNames);
+                JScrollPane scrollPane = new JScrollPane(table);
+                return scrollPane;
+            }
+        };
+        visualizePanel.setCaricaButton(caricaButtonListener);
 
     }
 }

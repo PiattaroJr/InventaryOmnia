@@ -3,20 +3,17 @@ package functionPanels;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
-
-import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
 
 public class InventaryOmniaVisPanel extends JPanel {
     private DefaultTableModel model;
+    private JPanel southPanel = new JPanel(new FlowLayout());
     private JTable table;
     JButton addButton = new JButton("Aggiungi riga");
     private JButton saveButton = new JButton("Salva inventario");
-    //private JTable table = new JTable(10,10);
+    private JButton caricaButton = new JButton("Carica inventario");
+    private JScrollPane tableContainer;
 
     public InventaryOmniaVisPanel(){
 
@@ -46,18 +43,20 @@ public class InventaryOmniaVisPanel extends JPanel {
         table = new JTable(model);
 
         // Aggiungo la tabella ad uno scroll pane
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        tableContainer = new JScrollPane(table);
+        add(tableContainer, BorderLayout.CENTER);
 
 
 
         /**
          *
-         * Pulsante di prova per aggiungere dei fake-materassi
+         * JPanel contenente i pulsanti.
          *
          */
 
-        add(saveButton, "South");
+        add(southPanel, "South");
+        southPanel.add(saveButton);
+        southPanel.add(caricaButton);
 
         setVisible(true);
     }
@@ -72,6 +71,18 @@ public class InventaryOmniaVisPanel extends JPanel {
 
     public DefaultTableModel getModel() {
         return this.model;
+    }
+
+
+    /**
+     * Metodo che setta il nuovo JScrollPane per la table.
+     * @param newPane
+     */
+
+    public void setTableContainer(JScrollPane newPane){
+        this.remove(tableContainer);
+        this.tableContainer = newPane;
+        add(tableContainer, BorderLayout.CENTER);
     }
 
 
@@ -105,6 +116,7 @@ public class InventaryOmniaVisPanel extends JPanel {
     }
 
 
+
     /**
      *
      * Metodo che restituisce i dati di una certa riga.
@@ -119,6 +131,8 @@ public class InventaryOmniaVisPanel extends JPanel {
         return rowData;
      }
 
+
+
     /**
      *
      * Metodo che aggiorni una riga
@@ -129,15 +143,16 @@ public class InventaryOmniaVisPanel extends JPanel {
         model.setValueAt(newPezzi, rowIndex, 0);
     }
 
-    //public void set
-
-
-
-    // Method to save table data to JSON
+    /**
+     * metodi per gestire i listener dei pulsanti.
+     * @param action
+     */
 
     public void setSaveButton(ActionListener action){
         this.saveButton.addActionListener(action);
     }
-
+    public void setCaricaButton(ActionListener action){
+        this.caricaButton.addActionListener(action);
+    }
 
 }

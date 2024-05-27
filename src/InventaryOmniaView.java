@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.RGBImageFilter;
 
 public class InventaryOmniaView extends JFrame {
     private JPanel rootPanel = new JPanel(new BorderLayout());
@@ -83,7 +84,7 @@ public class InventaryOmniaView extends JFrame {
          * Questo poi aggiunto al JPanel chiamato "menuPanel".
          */
 
-        menuPanel.setBackground(Color.white);
+        menuPanel.setBackground(Color.WHITE);
 
         addButton = new JButton("Aggiungi materassi");
         addButton.setEnabled(true);

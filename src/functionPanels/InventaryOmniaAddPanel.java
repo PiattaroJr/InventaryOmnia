@@ -15,7 +15,12 @@ public class InventaryOmniaAddPanel extends JPanel {
     private Font boldFont = new Font("Arial", Font.BOLD, 25);
     private ArrayList<String> dataMateTmp = new ArrayList<>();
 
+    /**
+     *
+     * Lista dei tipi di materassi
+     */
 
+    private String[] mattressTypes = { "Memory Foam", "Lattice", "Artico", "Ibrido", "Ad aria", "Ignifugo", "Aloe" };
 
     /**
      * Attributi per i label:
@@ -34,7 +39,8 @@ public class InventaryOmniaAddPanel extends JPanel {
      * Attributi per i textField
      */
 
-    private JTextField tipoTextField = new JTextField();
+    //private  tipoTextField = new JTextField();
+    JComboBox<String> mattressComboBox = new JComboBox<>(mattressTypes);
     private JTextField idTextField = new JTextField();
     private JTextField altezzaTextField = new JTextField();
     private JTextField lunghezzaTextField = new JTextField();
@@ -78,19 +84,19 @@ public class InventaryOmniaAddPanel extends JPanel {
         * (a destra del JSplitPane)
         */
 
-        tipoTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        mattressComboBox.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         idTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         altezzaTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         lunghezzaTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         spessoreTextField.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
-        tipoTextField.setFont(boldFont);
+        mattressComboBox.setFont(boldFont);
         idTextField.setFont(boldFont);
         altezzaTextField.setFont(boldFont);
         lunghezzaTextField.setFont(boldFont);
         spessoreTextField.setFont(boldFont);
 
-        rightPanel.add(tipoTextField);
+        rightPanel.add(mattressComboBox);
         rightPanel.add(idTextField);
         rightPanel.add(altezzaTextField);
         rightPanel.add(lunghezzaTextField);
@@ -105,12 +111,27 @@ public class InventaryOmniaAddPanel extends JPanel {
         splitter.setDividerSize(5);
 
 
+
+        mattressComboBox.setSelectedIndex(0); // Imposta il valore di default
+
+
         setVisible(true);
     }
 
+
+    public JComboBox<String> getMattressComboBox() {
+        return mattressComboBox;
+    }
+
+    public void setMattressComboBox(JComboBox<String> mattressComboBox) {
+        this.mattressComboBox = mattressComboBox;
+    }
+
+    /**
     public String getTextTipo(){
         return this.tipoTextField.getText();
     }
+     */
     public String getTextId(){
         return this.idTextField.getText();
     }
@@ -139,7 +160,7 @@ public class InventaryOmniaAddPanel extends JPanel {
 
     public ArrayList<String> getMaterassoData(){
         dataMateTmp.clear();
-        dataMateTmp.add(getTextTipo());
+        dataMateTmp.add((String) this.getMattressComboBox().getSelectedItem());
         dataMateTmp.add(getTextId());
         dataMateTmp.add(getTextAltezza());
         dataMateTmp.add(getTextLunghezza());

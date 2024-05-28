@@ -1,4 +1,7 @@
+import functionPanels.InventaryOmniaRemovePanel;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +18,7 @@ public class Main {
 
                 Controller c = new Controller();
                 c.run();
+
 
             }
         });

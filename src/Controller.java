@@ -10,7 +10,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -335,6 +339,44 @@ public class Controller {
             }
         };
         visualizePanel.setCaricaButton(caricaButtonListener);
+
+
+        /**
+         *
+         * Implementazione della ricerca
+         */
+
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(visualizePanel.getModel());
+        visualizePanel.getTable().setRowSorter(sorter);
+
+        visualizePanel.getSearchField().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterTable();
+            }
+
+            private void filterTable() {
+                String text = visualizePanel.getSearchField().getText();
+                if (text.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+        });
+
+
 
     }
 }

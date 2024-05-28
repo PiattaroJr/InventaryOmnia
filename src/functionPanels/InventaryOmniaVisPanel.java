@@ -5,6 +5,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class InventaryOmniaVisPanel extends JPanel {
     private DefaultTableModel model;
@@ -14,6 +18,7 @@ public class InventaryOmniaVisPanel extends JPanel {
     private JButton saveButton = new JButton("Salva inventario");
     private JButton caricaButton = new JButton("Carica inventario");
     private JScrollPane tableContainer;
+    private JTextField searchField  = new JTextField(30);
 
     public InventaryOmniaVisPanel(){
 
@@ -58,9 +63,38 @@ public class InventaryOmniaVisPanel extends JPanel {
         southPanel.add(saveButton);
         southPanel.add(caricaButton);
 
+
+        /**
+         *
+         * JPanel contenente la ricerca.
+         */
+
+
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel.add(new JLabel("Cerca:"));
+        panel.add(searchField);
+        add(panel, BorderLayout.NORTH);
+
+
+
+
         setVisible(true);
     }
 
+
+    /**
+     *
+     * getter della table e della searchfield
+     * @return
+     *
+     */
+    public JTable getTable() {
+        return table;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
+    }
 
     /**
      *

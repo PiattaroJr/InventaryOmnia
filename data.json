@@ -1,1 +1,20 @@
-[{"Molle":"","Pezzi":"","Tipo":"","Spessore":"","Lunghezza":"","Altezza":"","ID":""},{"Molle":false,"Pezzi":1,"Tipo":"654","Spessore":76,"Lunghezza":87,"Altezza":65,"ID":"Memory Foam"}]
+[
+  {
+    "Pezzi": "",
+    "ID": "",
+    "Tipo": "",
+    "Altezza": "",
+    "Lunghezza": "",
+    "Spessore": "",
+    "Molle": ""
+  },
+  {
+    "Pezzi": "1",
+    "ID": "Memory Foam",
+    "Tipo": "123",
+    "Altezza": "123123",
+    "Lunghezza": "123",
+    "Spessore": "123",
+    "Molle": "true"
+  }
+]

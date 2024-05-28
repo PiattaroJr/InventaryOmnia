@@ -1,3 +1,5 @@
+import com.google.gson.*;
+import com.sun.management.GarbageCollectionNotificationInfo;
 import functionPanels.InventaryOmniaAddPanel;
 import functionPanels.InventaryOmniaHomePanel;
 import functionPanels.InventaryOmniaRemovePanel;
@@ -16,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Controller {
     private InventaryOmniaView mainView;
@@ -209,7 +212,11 @@ public class Controller {
 
 
         /**
+         *
          *  ActionListener per il saveButton.
+         *
+         *  FUNZIONANTE
+         *
          */
 
         ActionListener saveButtonAction = new ActionListener() {
@@ -220,23 +227,23 @@ public class Controller {
             }
 
             public void saveTableDataToJSON(DefaultTableModel model, String filename) {
-                JSONArray jsonArray = new JSONArray();
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                JsonArray jsonArray = new JsonArray();
 
                 for (int i = 0; i < model.getRowCount(); i++) {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("Pezzi", model.getValueAt(i, 0));
-                    jsonObject.put("ID", model.getValueAt(i, 1));
-                    jsonObject.put("Tipo", model.getValueAt(i, 2));
-                    jsonObject.put("Altezza", model.getValueAt(i, 3));
-                    jsonObject.put("Lunghezza", model.getValueAt(i, 4));
-                    jsonObject.put("Spessore", model.getValueAt(i, 5));
-                    jsonObject.put("Molle", model.getValueAt(i, 6));
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.add("Pezzi", new JsonPrimitive(model.getValueAt(i, 0).toString()));
+                    jsonObject.add("ID", new JsonPrimitive(model.getValueAt(i, 1).toString()));
+                    jsonObject.add("Tipo", new JsonPrimitive(model.getValueAt(i, 2).toString()));
+                    jsonObject.add("Altezza", new JsonPrimitive(model.getValueAt(i, 3).toString()));
+                    jsonObject.add("Lunghezza", new JsonPrimitive(model.getValueAt(i, 4).toString()));
+                    jsonObject.add("Spessore", new JsonPrimitive(model.getValueAt(i, 5).toString()));
+                    jsonObject.add("Molle", new JsonPrimitive(model.getValueAt(i, 6).toString()));
                     jsonArray.add(jsonObject);
                 }
 
                 try (FileWriter file = new FileWriter(filename)) {
-                    file.write(jsonArray.toJSONString());
-                    file.flush();
+                    gson.toJson(jsonArray, file);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -247,7 +254,11 @@ public class Controller {
 
 
         /**
+         *
          * ActionListener per caricare i dati salvati
+         *
+         * NON FUNZIONANTE
+         *
          */
 
         ActionListener caricaButtonListener = new ActionListener() {

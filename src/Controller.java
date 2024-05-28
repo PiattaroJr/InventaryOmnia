@@ -148,7 +148,9 @@ public class Controller {
 
 
         /**
+         *
          * ActionListener per l'aggiunta di Materassi
+         *
          */
 
         ActionListener addNewMaterasso = new ActionListener() {
@@ -257,48 +259,50 @@ public class Controller {
          *
          * ActionListener per caricare i dati salvati
          *
-         * NON FUNZIONANTE
+         * FUNZIONANTE
          *
          */
 
         ActionListener caricaButtonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JSONArray materassiJSON = readOrCreateJSONFile("data.json");
+                JsonArray materassiJSON = readOrCreateJSONFile("data.json");
                 JScrollPane loadedTable = populateGrid(materassiJSON);
                 visualizePanel.setTableContainer(loadedTable);
                 visualizePanel.repaint();
                 visualizePanel.revalidate();
             }
 
-            private JSONArray readOrCreateJSONFile(String filename) {
-                JSONParser parser = new JSONParser();
-                JSONArray jsonData = null;
+            public JsonArray readOrCreateJSONFile(String filename) {
+                JsonArray jsonData = null;
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
                 try {
                     File file = new File(filename);
                     if (file.exists()) {
-                        Object obj = parser.parse(new FileReader(filename));
-                        System.out.println(obj);
-                        jsonData = (JSONArray) obj;
+                        jsonData = gson.fromJson(new FileReader(filename), JsonArray.class);
                     } else {
-                        // Crea il file e inizializza con un array vuoto
                         FileWriter fileWriter = new FileWriter(filename);
-                        fileWriter.write("[]");
+                        gson.toJson(new JsonArray(), fileWriter);
                         fileWriter.close();
-                        jsonData = new JSONArray();
+                        jsonData = new JsonArray();
                     }
-                } catch (Exception e) {
+                } catch (JsonIOException | JsonSyntaxException | IOException e) {
                     e.printStackTrace();
                 }
 
                 return jsonData;
             }
 
-            private JScrollPane populateGrid(JSONArray jsonData) {
-                // Ottieni il numero di righe e colonne
+            public JScrollPane populateGrid(JsonArray jsonData) {
                 int numRows = jsonData.size();
-                int numCols = ((JSONObject) jsonData.get(0)).keySet().size();
+                int numCols = 0;
+
+                // Se il JSON contiene almeno una riga, assumi che tutte le righe abbiano lo stesso numero di colonne
+                if (numRows > 0) {
+                    JsonObject firstRow = jsonData.get(0).getAsJsonObject();
+                    numCols = firstRow.entrySet().size();
+                }
 
                 // Crea la griglia
                 String[] columnNames = new String[numCols];
@@ -306,16 +310,23 @@ public class Controller {
 
                 // Popola i nomi delle colonne
                 int colIndex = 0;
-                for (Object key : ((JSONObject) jsonData.get(0)).keySet()) {
-                    columnNames[colIndex++] = (String) key;
+                for (String key : jsonData.get(0).getAsJsonObject().keySet()) {
+                    columnNames[colIndex++] = key;
                 }
 
                 // Popola i dati delle righe
                 for (int i = 0; i < numRows; i++) {
-                    JSONObject row = (JSONObject) jsonData.get(i);
+                    JsonObject row = jsonData.get(i).getAsJsonObject();
                     int j = 0;
-                    for (Object key : row.keySet()) {
-                        rowData[i][j++] = row.get(key);
+                    for (String key : row.keySet()) {
+                        JsonElement value = row.get(key);
+                        JsonPrimitive primitive = value.getAsJsonPrimitive();
+                        if (primitive.isNumber())
+                            rowData[i][j++] = primitive.getAsNumber();
+                        else if (primitive.isString())
+                            rowData[i][j++] = primitive.getAsString();
+                        else
+                            rowData[i][j++] = primitive.getAsBoolean();
                     }
                 }
 

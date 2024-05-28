@@ -9,12 +9,30 @@
     "Molle": ""
   },
   {
-    "Pezzi": "1",
+    "Pezzi": "3",
     "ID": "Memory Foam",
-    "Tipo": "123",
-    "Altezza": "123123",
+    "Tipo": "213",
+    "Altezza": "123",
     "Lunghezza": "123",
     "Spessore": "123",
+    "Molle": "true"
+  },
+  {
+    "Pezzi": "2",
+    "ID": "Memory Foam",
+    "Tipo": "213",
+    "Altezza": "123",
+    "Lunghezza": "123",
+    "Spessore": "123123",
+    "Molle": "true"
+  },
+  {
+    "Pezzi": "1",
+    "ID": "Artico",
+    "Tipo": "213",
+    "Altezza": "123",
+    "Lunghezza": "123",
+    "Spessore": "123123",
     "Molle": "true"
   }
 ]

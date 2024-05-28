@@ -272,7 +272,7 @@ public class Controller {
          *
          * ActionListener per caricare i dati salvati
          *
-         * MALFUNZIONANTE
+         * FUNZIONANTE
          *
          */
 

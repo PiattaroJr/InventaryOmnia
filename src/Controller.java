@@ -144,9 +144,6 @@ public class Controller {
 
 
 
-
-
-
         /**
          *
          * ActionListener per l'aggiunta di Materassi
@@ -159,7 +156,7 @@ public class Controller {
 
                 int nRow;
                 String tmpId, tmpTipo;
-                Integer nPezziContainer, tmpAltezza, tmpLunghezza, tmpSpessore, tmpPezzi;
+                Number nPezziContainer, tmpAltezza, tmpLunghezza, tmpSpessore, tmpPezzi;
                 Boolean isEqual = false, tmpMolle;
                 ArrayList<Object> tmpDataObject;
                 Materasso tmpRow;
@@ -184,20 +181,24 @@ public class Controller {
 
                 for(int i = 1; i < nRow && !isEqual; i++){
                     tmpDataObject = visualizePanel.getRowData(i);
-                    tmpPezzi = (Integer) tmpDataObject.get(0);
+
+                    System.out.println(tmpDataObject);
+
+                    tmpPezzi = (Number) tmpDataObject.get(0);
                     tmpId = (String) tmpDataObject.get(1);
                     tmpTipo = (String) tmpDataObject.get(2);
-                    tmpAltezza = (Integer) tmpDataObject.get(3);
-                    tmpLunghezza = (Integer) tmpDataObject.get(4);
-                    tmpSpessore = (Integer) tmpDataObject.get(5);
+                    tmpAltezza = (Number) tmpDataObject.get(3);
+                    tmpLunghezza = (Number) tmpDataObject.get(4);
+                    tmpSpessore = (Number) tmpDataObject.get(5);
                     tmpMolle = (Boolean) tmpDataObject.get(6);
-                    tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza, tmpLunghezza, tmpSpessore, tmpMolle);
+
+                    tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza.intValue(), tmpLunghezza.intValue(), tmpSpessore.intValue(), tmpMolle);
 
                     System.out.println(tmpRow);
 
                     if(toAddMaterasso.equals(tmpRow)){
                         isEqual = true;
-                        nPezziContainer = tmpPezzi + 1;
+                        nPezziContainer = tmpPezzi.intValue() + 1;
                         visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
                     }
                 }
@@ -231,16 +232,28 @@ public class Controller {
             public void saveTableDataToJSON(DefaultTableModel model, String filename) {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 JsonArray jsonArray = new JsonArray();
+                JsonObject firstRow = new JsonObject();
 
-                for (int i = 0; i < model.getRowCount(); i++) {
+                //prima riga
+                firstRow.addProperty("Pezzi", "");
+                firstRow.addProperty("Tipo", "");
+                firstRow.addProperty("ID","");
+                firstRow.addProperty("Altezza","");
+                firstRow.addProperty("Lunghezza", "");
+                firstRow.addProperty("Spessore", "");
+                firstRow.addProperty("Molle", "");
+                jsonArray.add(firstRow);
+
+                for (int i = 1; i < model.getRowCount(); i++) {
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.add("Pezzi", new JsonPrimitive(model.getValueAt(i, 0).toString()));
-                    jsonObject.add("ID", new JsonPrimitive(model.getValueAt(i, 1).toString()));
-                    jsonObject.add("Tipo", new JsonPrimitive(model.getValueAt(i, 2).toString()));
-                    jsonObject.add("Altezza", new JsonPrimitive(model.getValueAt(i, 3).toString()));
-                    jsonObject.add("Lunghezza", new JsonPrimitive(model.getValueAt(i, 4).toString()));
-                    jsonObject.add("Spessore", new JsonPrimitive(model.getValueAt(i, 5).toString()));
-                    jsonObject.add("Molle", new JsonPrimitive(model.getValueAt(i, 6).toString()));
+
+                    jsonObject.addProperty("Pezzi", (Number) model.getValueAt(i,0));
+                    jsonObject.addProperty("Tipo", (String) model.getValueAt(i, 1));
+                    jsonObject.addProperty("ID", (String) model.getValueAt(i, 2));
+                    jsonObject.addProperty("Altezza", (Number) model.getValueAt(i, 3));
+                    jsonObject.addProperty("Lunghezza", (Number) model.getValueAt(i, 4));
+                    jsonObject.addProperty("Spessore", (Number) model.getValueAt(i, 5));
+                    jsonObject.addProperty("Molle", (Boolean) model.getValueAt(i, 6));
                     jsonArray.add(jsonObject);
                 }
 
@@ -259,16 +272,19 @@ public class Controller {
          *
          * ActionListener per caricare i dati salvati
          *
-         * FUNZIONANTE
+         * MALFUNZIONANTE
          *
          */
 
         ActionListener caricaButtonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DefaultTableModel model = (DefaultTableModel) visualizePanel.getModel();
+                model.setRowCount(0); // Cancella tutte le righe esistenti
+
                 JsonArray materassiJSON = readOrCreateJSONFile("data.json");
-                JScrollPane loadedTable = populateGrid(materassiJSON);
-                visualizePanel.setTableContainer(loadedTable);
+                populateGrid(model, materassiJSON);
+
                 visualizePanel.repaint();
                 visualizePanel.revalidate();
             }
@@ -294,46 +310,28 @@ public class Controller {
                 return jsonData;
             }
 
-            public JScrollPane populateGrid(JsonArray jsonData) {
-                int numRows = jsonData.size();
-                int numCols = 0;
-
-                // Se il JSON contiene almeno una riga, assumi che tutte le righe abbiano lo stesso numero di colonne
-                if (numRows > 0) {
-                    JsonObject firstRow = jsonData.get(0).getAsJsonObject();
-                    numCols = firstRow.entrySet().size();
-                }
-
-                // Crea la griglia
-                String[] columnNames = new String[numCols];
-                Object[][] rowData = new Object[numRows][numCols];
-
-                // Popola i nomi delle colonne
-                int colIndex = 0;
-                for (String key : jsonData.get(0).getAsJsonObject().keySet()) {
-                    columnNames[colIndex++] = key;
-                }
-
-                // Popola i dati delle righe
-                for (int i = 0; i < numRows; i++) {
-                    JsonObject row = jsonData.get(i).getAsJsonObject();
-                    int j = 0;
-                    for (String key : row.keySet()) {
-                        JsonElement value = row.get(key);
-                        JsonPrimitive primitive = value.getAsJsonPrimitive();
-                        if (primitive.isNumber())
-                            rowData[i][j++] = primitive.getAsNumber();
-                        else if (primitive.isString())
-                            rowData[i][j++] = primitive.getAsString();
-                        else
-                            rowData[i][j++] = primitive.getAsBoolean();
+            public void populateGrid(DefaultTableModel model, JsonArray jsonData) {
+                for (JsonElement element : jsonData) {
+                    JsonObject row = element.getAsJsonObject();
+                    Object[] rowData = new Object[model.getColumnCount()];
+                    for (int i = 0; i < model.getColumnCount(); i++) {
+                        String columnName = model.getColumnName(i);
+                        JsonElement value = row.get(columnName);
+                        if (value != null) {
+                            if (value.isJsonPrimitive()) {
+                                JsonPrimitive primitive = value.getAsJsonPrimitive();
+                                if (primitive.isNumber()) {
+                                    rowData[i] = primitive.getAsNumber();
+                                } else if (primitive.isString()) {
+                                    rowData[i] = primitive.getAsString();
+                                } else if (primitive.isBoolean()) {
+                                    rowData[i] = primitive.getAsBoolean();
+                                }
+                            }
+                        }
                     }
+                    model.addRow(rowData);
                 }
-
-                // Crea la tabella e aggiungila al panel
-                JTable table = new JTable(rowData, columnNames);
-                JScrollPane scrollPane = new JScrollPane(table);
-                return scrollPane;
             }
         };
         visualizePanel.setCaricaButton(caricaButtonListener);

@@ -33,7 +33,7 @@ public class InventaryOmniaVisPanel extends JPanel {
          *
          */
 
-        Object[] columns = {"Pezzi", "ID", "Tipo", "Altezza", "Lunghezza", "Spessore", "Molle"};
+        Object[] columns = {"Pezzi", "Tipo", "ID", "Altezza", "Lunghezza", "Spessore", "Molle"};
         Object[][] data = {
                 {"", "", "", "", "", "", ""}
         };
@@ -127,6 +127,7 @@ public class InventaryOmniaVisPanel extends JPanel {
         ArrayList<Object> rowData = new ArrayList<>();
         for(int i = 0; i < 7; i++){
             rowData.add(model.getValueAt(rowIndex, i));
+            System.out.println(model.getValueAt(rowIndex,i).getClass());
         }
         return rowData;
      }

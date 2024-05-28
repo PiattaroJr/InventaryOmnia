@@ -1,38 +1,56 @@
 [
   {
     "Pezzi": "",
-    "ID": "",
     "Tipo": "",
+    "ID": "",
     "Altezza": "",
     "Lunghezza": "",
     "Spessore": "",
     "Molle": ""
   },
   {
-    "Pezzi": "3",
-    "ID": "Memory Foam",
-    "Tipo": "213",
-    "Altezza": "123",
-    "Lunghezza": "123",
-    "Spessore": "123",
-    "Molle": "true"
+    "Pezzi": 3,
+    "Tipo": "Memory Foam",
+    "ID": "13",
+    "Altezza": 123,
+    "Lunghezza": 123,
+    "Spessore": 132,
+    "Molle": true
   },
   {
-    "Pezzi": "2",
-    "ID": "Memory Foam",
-    "Tipo": "213",
-    "Altezza": "123",
-    "Lunghezza": "123",
-    "Spessore": "123123",
-    "Molle": "true"
+    "Pezzi": 1,
+    "Tipo": "Memory Foam",
+    "ID": "13",
+    "Altezza": 123,
+    "Lunghezza": 123,
+    "Spessore": 132,
+    "Molle": false
   },
   {
-    "Pezzi": "1",
-    "ID": "Artico",
-    "Tipo": "213",
-    "Altezza": "123",
-    "Lunghezza": "123",
-    "Spessore": "123123",
-    "Molle": "true"
+    "Pezzi": 1,
+    "Tipo": "Memory Foam",
+    "ID": "13",
+    "Altezza": 123,
+    "Lunghezza": 123,
+    "Spessore": 12132,
+    "Molle": false
+  },
+  {
+    "Pezzi": 1,
+    "Tipo": "Memory Foam",
+    "ID": "13",
+    "Altezza": 13211231,
+    "Lunghezza": 123,
+    "Spessore": 12132,
+    "Molle": false
+  },
+  {
+    "Pezzi": 2,
+    "Tipo": "Memory Foam",
+    "ID": "13",
+    "Altezza": 13211231,
+    "Lunghezza": 123,
+    "Spessore": 12132,
+    "Molle": true
   }
 ]

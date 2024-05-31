@@ -35,8 +35,9 @@ public class Controller {
     public Controller()
     {
         /**
-         * Nel costruttore inizializzo un array contenenti i JPanel.
+         *
          * Il JPanel di avvio ovviamente è la Home.
+         *
          */
 
         mainView = new InventaryOmniaView();
@@ -45,7 +46,9 @@ public class Controller {
 
 
         /**
+         *
          * Materasso temporaneo
+         *
          */
 
         toAddMaterasso = new Materasso();
@@ -157,6 +160,8 @@ public class Controller {
         ActionListener addNewMaterasso = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String error = "[!] Error: ";
+                int countErrors = 0;
 
                 int nRow;
                 String tmpId, tmpTipo;
@@ -165,53 +170,78 @@ public class Controller {
                 ArrayList<Object> tmpDataObject;
                 Materasso tmpRow;
                 ArrayList<String> tmp = addPanel.getMaterassoData();
-                toAddMaterasso.setId(tmp.get(0));
-                toAddMaterasso.setTipo(tmp.get(1));
-                toAddMaterasso.setAltezza(Integer.parseInt(tmp.get(2)));
-                toAddMaterasso.setLunghezza(Integer.parseInt(tmp.get(3)));
-                toAddMaterasso.setSpessore(Integer.parseInt(tmp.get(4)));
-                toAddMaterasso.setMolle(Boolean.parseBoolean(tmp.get(5)));
+
+                if(tmp.get(1).equals("")){
+                    error += "Il campo Id è vuoto!\n";
+                    countErrors++;
+                }
+
+                if(!tmp.get(2).matches("[0-9]+")){
+                    error += "Il campo Altezza è vuoto o ha caratteri alfabetici!\n";
+                    countErrors++;
+                }
+
+                if(!tmp.get(3).matches("[0-9]+")){
+                    error += "Il campo Lunghezza è vuoto o ha caratteri alfabetici!\n";
+                    countErrors++;
+                }
+
+                if(!tmp.get(4).matches("[0-9]+")){
+                    error += "Il campo Spessore è vuoto o ha caratteri alfabetici!\n";
+                    countErrors++;
+                }
+
+                if(countErrors == 0){
+                    toAddMaterasso.setId(tmp.get(0));
+                    toAddMaterasso.setTipo(tmp.get(1));
+                    toAddMaterasso.setAltezza(Integer.parseInt(tmp.get(2)));
+                    toAddMaterasso.setLunghezza(Integer.parseInt(tmp.get(3)));
+                    toAddMaterasso.setSpessore(Integer.parseInt(tmp.get(4)));
+                    toAddMaterasso.setMolle(Boolean.parseBoolean(tmp.get(5)));
 
 
 
-                /**
-                 *
-                 * Selezione che controlla se il materasso esiste già
-                 *
-                 */
+                    /**
+                     *
+                     * Selezione che controlla se il materasso esiste già
+                     *
+                     */
 
-                nRow = visualizePanel.getNRow();
-                System.out.println(nRow);
+                    nRow = visualizePanel.getNRow();
+                    System.out.println(nRow);
 
-                for(int i = 1; i < nRow && !isEqual; i++){
-                    tmpDataObject = visualizePanel.getRowData(i);
+                    for(int i = 1; i < nRow && !isEqual; i++){
+                        tmpDataObject = visualizePanel.getRowData(i);
 
-                    System.out.println(tmpDataObject);
+                        System.out.println(tmpDataObject);
 
-                    tmpPezzi = (Number) tmpDataObject.get(0);
-                    tmpId = (String) tmpDataObject.get(1);
-                    tmpTipo = (String) tmpDataObject.get(2);
-                    tmpAltezza = (Number) tmpDataObject.get(3);
-                    tmpLunghezza = (Number) tmpDataObject.get(4);
-                    tmpSpessore = (Number) tmpDataObject.get(5);
-                    tmpMolle = (Boolean) tmpDataObject.get(6);
+                        tmpPezzi = (Number) tmpDataObject.get(0);
+                        tmpId = (String) tmpDataObject.get(1);
+                        tmpTipo = (String) tmpDataObject.get(2);
+                        tmpAltezza = (Number) tmpDataObject.get(3);
+                        tmpLunghezza = (Number) tmpDataObject.get(4);
+                        tmpSpessore = (Number) tmpDataObject.get(5);
+                        tmpMolle = (Boolean) tmpDataObject.get(6);
 
-                    tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza.intValue(), tmpLunghezza.intValue(), tmpSpessore.intValue(), tmpMolle);
+                        tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza.intValue(), tmpLunghezza.intValue(), tmpSpessore.intValue(), tmpMolle);
 
-                    System.out.println(tmpRow);
+                        System.out.println(tmpRow);
 
-                    if(toAddMaterasso.equals(tmpRow)){
-                        isEqual = true;
-                        nPezziContainer = tmpPezzi.intValue() + 1;
-                        visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
+                        if(toAddMaterasso.equals(tmpRow)){
+                            isEqual = true;
+                            nPezziContainer = tmpPezzi.intValue() + 1;
+                            visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
+                        }
+                    }
+
+                    if(!isEqual){
+                        visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
+
                     }
                 }
-
-                if(!isEqual){
-                    visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
-
+                else{
+                    addPanel.showErrorDialog(error);
                 }
-
             }
         };
         addPanel.setSendButton(addNewMaterasso);

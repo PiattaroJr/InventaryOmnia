@@ -208,4 +208,8 @@ public class InventaryOmniaAddPanel extends JPanel {
             }
         });
     }
+
+    public void showErrorDialog(String error){
+        JOptionPane.showMessageDialog(this, error);
+    }
 }

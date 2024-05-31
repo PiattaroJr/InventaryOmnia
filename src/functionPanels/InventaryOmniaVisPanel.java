@@ -19,6 +19,7 @@ public class InventaryOmniaVisPanel extends JPanel {
     private JButton caricaButton = new JButton("Carica inventario");
     private JScrollPane tableContainer;
     private JTextField searchField  = new JTextField(30);
+    private JButton deleteButton = new JButton("Elimina Selezionati");
 
     public InventaryOmniaVisPanel(){
 
@@ -62,6 +63,7 @@ public class InventaryOmniaVisPanel extends JPanel {
         add(southPanel, "South");
         southPanel.add(saveButton);
         southPanel.add(caricaButton);
+        southPanel.add(deleteButton);
 
 
         /**
@@ -79,6 +81,15 @@ public class InventaryOmniaVisPanel extends JPanel {
 
 
         setVisible(true);
+    }
+
+    /**
+     *
+     * getter e tasto elimina
+     */
+
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 
 
@@ -188,6 +199,9 @@ public class InventaryOmniaVisPanel extends JPanel {
     }
     public void setCaricaButton(ActionListener action){
         this.caricaButton.addActionListener(action);
+    }
+    public void setDeleteButton(ActionListener action){
+        this.deleteButton.addActionListener(action);
     }
 
 }

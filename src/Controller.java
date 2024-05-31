@@ -407,6 +407,43 @@ public class Controller {
         });
 
 
+        /**
+         *
+         * tasto elimina
+         */
+
+
+
+
+        ActionListener delateButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteSelectedRows();
+            }
+
+            private void deleteSelectedRows() {
+                int[] selectedRows = visualizePanel.getTable().getSelectedRows();
+                if (selectedRows.length == 0) {
+                    JOptionPane.showMessageDialog(visualizePanel, "Seleziona almeno una riga da eliminare.", "Nessuna selezione", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                int confirm = JOptionPane.showConfirmDialog(visualizePanel, "Sei sicuro di voler eliminare i prodotti selezionati?", "Conferma Eliminazione", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    deleteRows(selectedRows);
+                }
+            }
+
+            public void deleteRows(int[] rows) {
+                for (int i = rows.length - 1; i >= 0; i--) {
+                    visualizePanel.getModel().removeRow(rows[i]);
+                }
+            }
+        };
+        visualizePanel.setDeleteButton(delateButton);
+
+
+
 
     }
 }

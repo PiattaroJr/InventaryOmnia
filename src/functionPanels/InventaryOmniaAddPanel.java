@@ -127,11 +127,6 @@ public class InventaryOmniaAddPanel extends JPanel {
         this.mattressComboBox = mattressComboBox;
     }
 
-    /**
-    public String getTextTipo(){
-        return this.tipoTextField.getText();
-    }
-     */
     public String getTextId(){
         return this.idTextField.getText();
     }

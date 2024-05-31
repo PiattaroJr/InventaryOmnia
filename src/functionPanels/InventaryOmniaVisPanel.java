@@ -25,12 +25,6 @@ public class InventaryOmniaVisPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Leggi o crea il file JSON e ottieni i dati
-        //JSONArray jsonData = readOrCreateJSONFile("data.json");
-
-        // Popola la griglia con i dati ottenuti
-        //populateGrid(jsonData);
-
 
 
         /**
@@ -44,8 +38,20 @@ public class InventaryOmniaVisPanel extends JPanel {
                 {"", "", "", "", "", "", ""}
         };
 
-        // Creazione del modello della tabella
-        model = new DefaultTableModel(data, columns);
+        model = new DefaultTableModel(data, columns) {
+
+            /**
+             * Override del metodo isCellEditable per rendere le celle non modificabili
+             *
+             * @param row             the row whose value is to be queried
+             * @param column          the column whose value is to be queried
+             * @return
+             */
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         table = new JTable(model);
 
         // Aggiungo la tabella ad uno scroll pane
@@ -69,8 +75,8 @@ public class InventaryOmniaVisPanel extends JPanel {
         /**
          *
          * JPanel contenente la ricerca.
+         *
          */
-
 
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.add(new JLabel("Cerca:"));
@@ -86,11 +92,13 @@ public class InventaryOmniaVisPanel extends JPanel {
     /**
      *
      * getter e tasto elimina
+     *
      */
 
     public JButton getDeleteButton() {
         return deleteButton;
     }
+
 
 
     /**
@@ -172,7 +180,6 @@ public class InventaryOmniaVisPanel extends JPanel {
         ArrayList<Object> rowData = new ArrayList<>();
         for(int i = 0; i < 7; i++){
             rowData.add(model.getValueAt(rowIndex, i));
-            System.out.println(model.getValueAt(rowIndex,i).getClass());
         }
         return rowData;
      }

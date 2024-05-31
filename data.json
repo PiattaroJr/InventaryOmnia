@@ -7,5 +7,14 @@
     "Lunghezza": "",
     "Spessore": "",
     "Molle": ""
+  },
+  {
+    "Pezzi": 3,
+    "Tipo": "Memory Foam",
+    "ID": "123",
+    "Altezza": 123,
+    "Lunghezza": 123,
+    "Spessore": 123,
+    "Molle": true
   }
 ]

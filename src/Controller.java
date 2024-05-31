@@ -1,13 +1,7 @@
 import com.google.gson.*;
-import com.sun.management.GarbageCollectionNotificationInfo;
 import functionPanels.InventaryOmniaAddPanel;
 import functionPanels.InventaryOmniaHomePanel;
-import functionPanels.InventaryOmniaRemovePanel;
 import functionPanels.InventaryOmniaVisPanel;
-import org.json.simple.*;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -22,25 +16,30 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Controller {
-    private InventaryOmniaView mainView;
-    private InventaryOmniaHomePanel homePanel = new InventaryOmniaHomePanel();
-    private InventaryOmniaAddPanel addPanel = new InventaryOmniaAddPanel();
-    private InventaryOmniaRemovePanel removePanel = new InventaryOmniaRemovePanel();
-    private InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
-    private Materasso toAddMaterasso;
 
-    public Controller()
+    private InventaryOmniaView mainView;
+    private InventaryOmniaHomePanel homePanel;
+    private InventaryOmniaAddPanel addPanel;
+    private InventaryOmniaVisPanel visualizePanel;
+    private Materasso materassoModel;
+
+    public Controller(InventaryOmniaHomePanel homePanel, InventaryOmniaVisPanel visPanel, InventaryOmniaAddPanel addPanel, InventaryOmniaView mainView, Materasso materassoModel)
     {
+        this.homePanel = homePanel;
+        this.visualizePanel = visPanel;
+        this.addPanel = addPanel;
+        this.materassoModel = materassoModel;
+        this.mainView = mainView;
+
+
         /**
          *
          * Il JPanel di avvio ovviamente è la Home.
          *
          */
 
-        mainView = new InventaryOmniaView();
         mainView.setCentralPanel(homePanel);
 
 
@@ -51,7 +50,7 @@ public class Controller {
          *
          */
 
-        toAddMaterasso = new Materasso();
+        materassoModel = new Materasso();
 
     }
 
@@ -96,25 +95,6 @@ public class Controller {
         mainView.setAddButton(actionChangeToAdd);
 
 
-
-        /**
-         *
-         * All -> {@link functionPanels.InventaryOmniaRemovePanel}
-         *
-         */
-
-        ActionListener actionChangeToRemove = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainView.setCentralPanel(removePanel);
-                mainView.repaint();
-                mainView.revalidate();
-            }
-        };
-        mainView.setRemoveButton(actionChangeToRemove);
-
-
-
         /**
          *
          * All -> {@link functionPanels.InventaryOmniaVisPanel}
@@ -148,6 +128,7 @@ public class Controller {
             }
         };
         mainView.setOmniaButton(actionChangeToHome);
+        mainView.setHomeButton(actionChangeToHome);
 
 
 
@@ -192,12 +173,12 @@ public class Controller {
                 }
 
                 if(countErrors == 0){
-                    toAddMaterasso.setId(tmp.get(0));
-                    toAddMaterasso.setTipo(tmp.get(1));
-                    toAddMaterasso.setAltezza(Integer.parseInt(tmp.get(2)));
-                    toAddMaterasso.setLunghezza(Integer.parseInt(tmp.get(3)));
-                    toAddMaterasso.setSpessore(Integer.parseInt(tmp.get(4)));
-                    toAddMaterasso.setMolle(Boolean.parseBoolean(tmp.get(5)));
+                    materassoModel.setId(tmp.get(0));
+                    materassoModel.setTipo(tmp.get(1));
+                    materassoModel.setAltezza(Integer.parseInt(tmp.get(2)));
+                    materassoModel.setLunghezza(Integer.parseInt(tmp.get(3)));
+                    materassoModel.setSpessore(Integer.parseInt(tmp.get(4)));
+                    materassoModel.setMolle(Boolean.parseBoolean(tmp.get(5)));
 
 
 
@@ -208,12 +189,9 @@ public class Controller {
                      */
 
                     nRow = visualizePanel.getNRow();
-                    System.out.println(nRow);
 
                     for(int i = 1; i < nRow && !isEqual; i++){
                         tmpDataObject = visualizePanel.getRowData(i);
-
-                        System.out.println(tmpDataObject);
 
                         tmpPezzi = (Number) tmpDataObject.get(0);
                         tmpId = (String) tmpDataObject.get(1);
@@ -225,9 +203,7 @@ public class Controller {
 
                         tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza.intValue(), tmpLunghezza.intValue(), tmpSpessore.intValue(), tmpMolle);
 
-                        System.out.println(tmpRow);
-
-                        if(toAddMaterasso.equals(tmpRow)){
+                        if(materassoModel.equals(tmpRow)){
                             isEqual = true;
                             nPezziContainer = tmpPezzi.intValue() + 1;
                             visualizePanel.updateRowPezzi((Object) nPezziContainer, i);
@@ -235,7 +211,7 @@ public class Controller {
                     }
 
                     if(!isEqual){
-                        visualizePanel.aggiungiRiga(toAddMaterasso.getId(), toAddMaterasso.getTipo(), toAddMaterasso.getAltezza(), toAddMaterasso.getLunghezza(), toAddMaterasso.getSpessore(), toAddMaterasso.hasMolle());
+                        visualizePanel.aggiungiRiga(materassoModel.getId(), materassoModel.getTipo(), materassoModel.getAltezza(), materassoModel.getLunghezza(), materassoModel.getSpessore(), materassoModel.hasMolle());
 
                     }
                 }
@@ -251,8 +227,6 @@ public class Controller {
         /**
          *
          *  ActionListener per il saveButton.
-         *
-         *  FUNZIONANTE
          *
          */
 
@@ -305,8 +279,6 @@ public class Controller {
         /**
          *
          * ActionListener per caricare i dati salvati
-         *
-         * FUNZIONANTE
          *
          */
 
@@ -374,6 +346,7 @@ public class Controller {
         /**
          *
          * Implementazione della ricerca
+         *
          */
 
 
@@ -407,15 +380,15 @@ public class Controller {
         });
 
 
+
         /**
          *
          * tasto elimina
+         *
          */
 
-
-
-
-        ActionListener delateButton = new ActionListener() {
+        ActionListener deleteButton = new ActionListener() {
+            ArrayList<Object> tmp;
             @Override
             public void actionPerformed(ActionEvent e) {
                 deleteSelectedRows();
@@ -436,14 +409,29 @@ public class Controller {
 
             public void deleteRows(int[] rows) {
                 for (int i = rows.length - 1; i >= 0; i--) {
-                    visualizePanel.getModel().removeRow(rows[i]);
+                        visualizePanel.getModel().removeRow(rows[i]);
+                    }
+                }
+            };
+        visualizePanel.setDeleteButton(deleteButton);
+
+
+
+        /**
+         *
+         * Metodi che gestiscono l'uscita dal programma
+         * dal HomeView
+         *
+         */
+        ActionListener quitListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(homePanel, "Sei sicuro di voler uscire dal programma?", "Conferma Uscita", JOptionPane.YES_NO_OPTION);
+                if(confirm == JOptionPane.YES_OPTION){
+                    System.exit(0);
                 }
             }
         };
-        visualizePanel.setDeleteButton(delateButton);
-
-
-
-
+        homePanel.setQuitButton(quitListener);
     }
 }

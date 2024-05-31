@@ -11,8 +11,8 @@ public class InventaryOmniaView extends JFrame {
     private JPanel centralPanel = new JPanel(new BorderLayout());
     private JPanel menuPanel = new JPanel(new BorderLayout());
     private JButton addButton;
-    private JButton removeButton;
     private JButton visButton;
+    private JButton homeButton;
 
 
 
@@ -89,15 +89,15 @@ public class InventaryOmniaView extends JFrame {
         addButton = new JButton("Aggiungi materassi");
         addButton.setEnabled(true);
 
-        removeButton = new JButton("Rimuovi materassi");
-        removeButton.setEnabled(true);
-
         visButton = new JButton("Visualizza i materassi");
         visButton.setEnabled(true);
 
+        homeButton = new JButton("Home");
+        homeButton.setEnabled(true);
+
         JPanel buttonsPanel = new JPanel(new GridLayout(3, 1));
+        buttonsPanel.add(homeButton);
         buttonsPanel.add(addButton);
-        buttonsPanel.add(removeButton);
         buttonsPanel.add(visButton);
         buttonsPanel.setBackground(Color.blue);
         buttonsPanel.setForeground(Color.blue);
@@ -174,14 +174,14 @@ public class InventaryOmniaView extends JFrame {
     public void setAddButton(ActionListener action){
         addButton.addActionListener(action);
     }
-    public void setRemoveButton(ActionListener action){
-        removeButton.addActionListener(action);
-    }
     public void setVisButton(ActionListener action){
         visButton.addActionListener(action);
     }
     public void setOmniaButton(ActionListener action){
         omniaButton.addActionListener(action);
+    }
+    public void setHomeButton(ActionListener action){
+        homeButton.addActionListener(action);
     }
 
 

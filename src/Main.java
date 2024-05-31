@@ -1,22 +1,21 @@
-import functionPanels.InventaryOmniaRemovePanel;
+import functionPanels.InventaryOmniaAddPanel;
+import functionPanels.InventaryOmniaHomePanel;
+import functionPanels.InventaryOmniaVisPanel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                InventaryOmniaView mainView = new InventaryOmniaView();;
+                InventaryOmniaHomePanel homePanel = new InventaryOmniaHomePanel();
+                InventaryOmniaAddPanel addPanel = new InventaryOmniaAddPanel();
+                InventaryOmniaVisPanel visualizePanel = new InventaryOmniaVisPanel();
+                Materasso materassoModel = new Materasso();
 
-
-
-                /**
-                * MODIFICA EFFETTUATA PER IL TESTING,
-                * GUARDA {@link Controller}
-                 */
-
-                Controller c = new Controller();
+                Controller c = new Controller(homePanel, visualizePanel, addPanel, mainView, materassoModel);
                 c.run();
 
 

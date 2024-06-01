@@ -91,6 +91,8 @@ public class Controller {
                 mainView.setCentralPanel(addPanel);
                 mainView.repaint();
                 mainView.revalidate();
+                addPanel.clearText();
+
             }
         };
         mainView.setAddButton(actionChangeToAdd);

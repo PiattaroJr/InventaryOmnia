@@ -207,4 +207,28 @@ public class InventaryOmniaAddPanel extends JPanel {
     public void showErrorDialog(String error){
         JOptionPane.showMessageDialog(this, error);
     }
+
+
+    public void clearText(){
+        this.idTextField.setText("");
+        this.altezzaTextField.setText("");
+        this.lunghezzaTextField.setText("");
+        this.spessoreTextField.setText("");
+        this.molleCheckBox.setSelected(false);
+
+
+
+        /**
+         *
+         *
+         * Applichiamo qui il placeHolder nei textField.
+         *
+         */
+
+        this.applyShadow(idTextField, "Inserisci qui l'ID");
+        this.applyShadow(altezzaTextField, "in cm...");
+        this.applyShadow(lunghezzaTextField, "in cm...");
+        this.applyShadow(spessoreTextField, "in cm...");
+
+    }
 }

@@ -9,12 +9,39 @@
     "Molle": ""
   },
   {
-    "Pezzi": 3,
+    "Pezzi": 15,
     "Tipo": "Memory Foam",
-    "ID": "123",
-    "Altezza": 123,
-    "Lunghezza": 123,
-    "Spessore": 123,
+    "ID": "45e-33-2d",
+    "Altezza": 190,
+    "Lunghezza": 160,
+    "Spessore": 21,
     "Molle": true
+  },
+  {
+    "Pezzi": 15,
+    "Tipo": "Memory Foam",
+    "ID": "45e-33-2d",
+    "Altezza": 190,
+    "Lunghezza": 160,
+    "Spessore": 21,
+    "Molle": false
+  },
+  {
+    "Pezzi": 32,
+    "Tipo": "Memory Foam",
+    "ID": "42-d2-4a86",
+    "Altezza": 195,
+    "Lunghezza": 150,
+    "Spessore": 25,
+    "Molle": true
+  },
+  {
+    "Pezzi": 16,
+    "Tipo": "Memory Foam",
+    "ID": "42-d2-4a86",
+    "Altezza": 195,
+    "Lunghezza": 150,
+    "Spessore": 25,
+    "Molle": false
   }
 ]

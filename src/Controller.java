@@ -9,6 +9,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -147,7 +148,8 @@ public class Controller {
                 int nRow;
                 String tmpId, tmpTipo;
                 Number nPezziContainer, tmpAltezza, tmpLunghezza, tmpSpessore, tmpPezzi;
-                Boolean isEqual = false, tmpMolle;
+                Boolean isEqual = false;
+                String tmpMolle;
                 ArrayList<Object> tmpDataObject;
                 Materasso tmpRow;
                 ArrayList<String> tmp = addPanel.getMaterassoData();
@@ -199,7 +201,7 @@ public class Controller {
                         tmpAltezza = (Number) tmpDataObject.get(3);
                         tmpLunghezza = (Number) tmpDataObject.get(4);
                         tmpSpessore = (Number) tmpDataObject.get(5);
-                        tmpMolle = (Boolean) tmpDataObject.get(6);
+                        tmpMolle = (String) tmpDataObject.get(6);
 
                         tmpRow = new Materasso(tmpId, tmpTipo, tmpAltezza.intValue(), tmpLunghezza.intValue(), tmpSpessore.intValue(), tmpMolle);
 
@@ -211,7 +213,7 @@ public class Controller {
                     }
 
                     if(!isEqual){
-                        visualizePanel.aggiungiRiga(materassoModel.getId(), materassoModel.getTipo(), materassoModel.getAltezza(), materassoModel.getLunghezza(), materassoModel.getSpessore(), materassoModel.hasMolle());
+                        visualizePanel.aggiungiRiga(materassoModel.getId(), materassoModel.getTipo(), materassoModel.getAltezza(), materassoModel.getLunghezza(), materassoModel.getSpessore(), materassoModel.getMolle());
 
                     }
                 }
@@ -261,7 +263,7 @@ public class Controller {
                     jsonObject.addProperty("Altezza", (Number) model.getValueAt(i, 3));
                     jsonObject.addProperty("Lunghezza", (Number) model.getValueAt(i, 4));
                     jsonObject.addProperty("Spessore", (Number) model.getValueAt(i, 5));
-                    jsonObject.addProperty("Molle", (Boolean) model.getValueAt(i, 6));
+                    jsonObject.addProperty("Molle", (model.getValueAt(i, 6) == "Con Molle") ? true : false);
                     jsonArray.add(jsonObject);
                 }
 
@@ -332,6 +334,7 @@ public class Controller {
                                     rowData[i] = primitive.getAsString();
                                 } else if (primitive.isBoolean()) {
                                     rowData[i] = primitive.getAsBoolean();
+                                    rowData[i] = ( (Boolean) rowData[i].equals(true) ) ? "Con Molle" : "Senza Molle";
                                 }
                             }
                         }
@@ -408,11 +411,34 @@ public class Controller {
             }
 
             public void deleteRows(int[] rows) {
+                int newValue;
                 for (int i = rows.length - 1; i >= 0; i--) {
+                    Number nPezzi = (Number) visualizePanel.getRowData(rows[i]).get(0);
+                    System.out.println(nPezzi);
+                    if(nPezzi.intValue() > 1){
+                        newValue = showSpinnerDialog(nPezzi.intValue());
+                        if(newValue == 0)
+                            visualizePanel.getModel().removeRow(rows[i]);
+                        else
+                            visualizePanel.updateRowPezzi(newValue, rows[i]);
+                    }
+                    else {
                         visualizePanel.getModel().removeRow(rows[i]);
                     }
                 }
-            };
+            }
+
+            private int showSpinnerDialog(int maxValue) {
+                JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, maxValue, 1));
+                int option = JOptionPane.showConfirmDialog(visualizePanel, spinner, "Selezione il numero da sottrarre", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    int value = (Integer) spinner.getValue();
+                    maxValue -= value;
+                }
+                return maxValue;
+            }
+        };
         visualizePanel.setDeleteButton(deleteButton);
 
 
@@ -433,5 +459,13 @@ public class Controller {
             }
         };
         homePanel.setQuitButton(quitListener);
+
+
+        /**
+         * dio merda bastardo
+         *          by andrea apicella
+         */
+
+
     }
 }

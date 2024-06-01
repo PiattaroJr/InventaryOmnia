@@ -11,12 +11,12 @@ public class InventaryOmniaHomePanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         homeLabel.setFont(new Font("Arial", Font.PLAIN, 36));
-        quitButton.setBackground(Color.red);
-        quitButton.setForeground(Color.blue);
+        //quitButton.setBackground(Color.red);
+        quitButton.setForeground(Color.red);
         quitButton.setFont(new Font("Arial", Font.PLAIN, 24));
 
         add(homeLabel, BorderLayout.CENTER);
-        add(quitButton, BorderLayout.SOUTH);
+        add(quitButton, BorderLayout.PAGE_END);
         setVisible(true);
     }
 

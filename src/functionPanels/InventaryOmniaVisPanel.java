@@ -151,7 +151,7 @@ public class InventaryOmniaVisPanel extends JPanel {
      *
      */
 
-    public void aggiungiRiga(String id, String tipo, int altezza, int lunghezza, int spessore, boolean molle) {
+    public void aggiungiRiga(String id, String tipo, int altezza, int lunghezza, int spessore, String molle) {
         Integer pezzi = 1;
         model.addRow(new Object[]{pezzi, id, tipo, altezza, lunghezza, spessore, molle});
     }

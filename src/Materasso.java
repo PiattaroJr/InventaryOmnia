@@ -6,12 +6,12 @@ public class Materasso {
     private int altezza;
     private int lunghezza;
     private int spessore;
-    private boolean molle;
+    private String molle;
 
     public Materasso() {
     }
 
-    public Materasso(String id, String tipo, int altezza, int lunghezza, int spessore, boolean molle) {
+    public Materasso(String id, String tipo, int altezza, int lunghezza, int spessore, String molle) {
         this.tipo = tipo;
         this.id = id;
         this.altezza = altezza;
@@ -60,12 +60,12 @@ public class Materasso {
         this.spessore = spessore;
     }
 
-    public boolean hasMolle() {
+    public String getMolle() {
         return molle;
     }
 
     public void setMolle(boolean molle) {
-        this.molle = molle;
+        this.molle = (molle == true) ? "Con Molle" :"Senza Molle";
     }
 
     @Override

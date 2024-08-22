@@ -462,12 +462,5 @@ public class Controller {
         };
         homePanel.setQuitButton(quitListener);
 
-
-        /**
-         * dio merda bastardo
-         *          by andrea apicella
-         */
-
-
     }
 }
